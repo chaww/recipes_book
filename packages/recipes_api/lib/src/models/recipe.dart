@@ -5,6 +5,62 @@ import 'package:recipes_api/recipes_api.dart';
 
 part 'recipe.g.dart';
 
+// [Menu] -> name, image, categoly
+// [MenuDetail] extend Menu -> [List<Recipe>]
+
+@immutable
+@JsonSerializable()
+class Menu extends Equatable {
+  final String name;
+  final String image;
+  final String category;
+
+  Menu({
+    required this.name,
+    this.image = "",
+    this.category = "",
+  });
+
+  Menu copyWith({
+    String? name,
+    String? image,
+    String? category,
+  }) {
+    return Menu(
+      name: name ?? this.name,
+      image: image ?? this.image,
+      category: category ?? this.category,
+    );
+  }
+
+  Menu fromJson(JsonMap json) => _$MenuFromJson(json);
+
+  JsonMap toJson() => _$MenuToJson(this);
+
+  @override
+  List<Object> get props => [name, image];
+}
+
+@immutable
+@JsonSerializable()
+class MenuDetail extends Menu {
+  final List<Recipe> recipeList;
+
+  MenuDetail({
+    required this.recipeList,
+    required super.name,
+    super.image,
+    super.category,
+  });
+
+  MenuDetail fromJson(JsonMap json) => _$MenuDetailFromJson(json);
+
+  JsonMap toJson() => _$MenuDetailToJson(this);
+
+  @override
+  List<Object> get props => super.props..addAll([recipeList]);
+}
+
 @immutable
 @JsonSerializable()
 class Recipe extends Equatable {
@@ -36,35 +92,6 @@ class Recipe extends Equatable {
 
   @override
   List<Object> get props => [name, image, type];
-}
-
-@immutable
-@JsonSerializable()
-class Menu extends Equatable {
-  final String name;
-  final String image;
-
-  Menu({
-    required this.name,
-    this.image = "",
-  });
-
-  Menu copyWith({
-    String? name,
-    String? image,
-  }) {
-    return Menu(
-      name: name ?? this.name,
-      image: image ?? this.image,
-    );
-  }
-
-  Menu fromJson(JsonMap json) => _$MenuFromJson(json);
-
-  JsonMap toJson() => _$MenuToJson(this);
-
-  @override
-  List<Object> get props => [name, image];
 }
 
 @immutable
