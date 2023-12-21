@@ -34,7 +34,7 @@ class Menu extends Equatable {
     );
   }
 
-  Menu fromJson(JsonMap json) => _$MenuFromJson(json);
+  static Menu fromJson(JsonMap json) => _$MenuFromJson(json);
 
   JsonMap toJson() => _$MenuToJson(this);
 
