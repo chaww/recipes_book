@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'menu.dart';
+part of 'book.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Menu _$MenuFromJson(Map<String, dynamic> json) => Menu(
+Book _$BookFromJson(Map<String, dynamic> json) => Book(
       name: json['name'] as String,
       image: json['image'] as String? ?? '',
       category: json['category'] as String? ?? '',
@@ -15,7 +15,7 @@ Menu _$MenuFromJson(Map<String, dynamic> json) => Menu(
           .toList(),
     );
 
-Map<String, dynamic> _$MenuToJson(Menu instance) => <String, dynamic>{
+Map<String, dynamic> _$BookToJson(Book instance) => <String, dynamic>{
       'name': instance.name,
       'image': instance.image,
       'category': instance.category,

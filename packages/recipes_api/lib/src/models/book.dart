@@ -3,30 +3,30 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:recipes_api/recipes_api.dart';
 
-part 'menu.g.dart';
+part 'book.g.dart';
 
 @immutable
 @JsonSerializable()
-class Menu extends Equatable {
+class Book extends Equatable {
   final String name;
   final String image;
   final String category;
   final List<Recipe> recipeList;
 
-  Menu({
+  Book({
     required this.name,
     this.image = '',
     this.category = '',
     required this.recipeList,
   });
 
-  Menu copyWith({
+  Book copyWith({
     String? name,
     String? image,
     String? category,
     List<Recipe>? recipeList,
   }) {
-    return Menu(
+    return Book(
       name: name ?? this.name,
       image: image ?? this.image,
       category: category ?? this.category,
@@ -34,9 +34,9 @@ class Menu extends Equatable {
     );
   }
 
-  static Menu fromJson(JsonMap json) => _$MenuFromJson(json);
+  static Book fromJson(JsonMap json) => _$BookFromJson(json);
 
-  JsonMap toJson() => _$MenuToJson(this);
+  JsonMap toJson() => _$BookToJson(this);
 
   @override
   List<Object> get props => [name, image, category, recipeList];
