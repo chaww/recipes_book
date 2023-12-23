@@ -5,7 +5,6 @@ import 'package:recipes_api/recipes_api.dart';
 
 part 'recipe.g.dart';
 
-@immutable
 @JsonSerializable()
 class Recipe extends Equatable {
   final String name;

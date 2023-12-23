@@ -5,14 +5,13 @@ import 'package:recipes_api/recipes_api.dart';
 
 part 'ingredient.g.dart';
 
-@immutable
 @JsonSerializable()
 class Ingredient extends Equatable {
   final String name;
   final String amount;
   final String unit;
 
-  const Ingredient({
+  Ingredient({
     required this.name,
     this.amount = '',
     this.unit = '',

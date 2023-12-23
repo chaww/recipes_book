@@ -6,16 +6,13 @@ abstract class RecipesApi {
   /// Provides a [Stream] of all menu list.
   Stream<List<Menu>> getMenuList();
 
-  Stream<Menu> getMenu();
+  Future<Menu> getMenu(String id);
 
-  Stream<void> saveMenu(Menu menu);
+  Future<void> saveMenu(Menu menu);
 
-  Stream<void> deleteMenu(String id);
-
-  //
-
-  Stream<Recipe> getRecipe()
-
+  Future<void> deleteMenu(String id);
 }
+
+class MenuNotFoundException implements Exception {}
 
 class RecipeNotFoundException implements Exception {}
