@@ -9,11 +9,11 @@ import 'package:recipes_api/recipes_api.dart';
 /// {@template local_storage_recipes_api}
 /// A Very Good Project created by Very Good CLI.
 /// {@endtemplate}
-class LocalStorageRecipesApi extends RecipesApi{
+class LocalStorageRecipesApi extends RecipesApi {
   /// {@macro local_storage_recipes_api}
   LocalStorageRecipesApi({
     required SharedPreferences plugin,
-  }):_plugin=plugin{
+  }) : _plugin = plugin {
     _init();
   }
 
@@ -24,12 +24,11 @@ class LocalStorageRecipesApi extends RecipesApi{
   @visibleForTesting
   static const kRecipesCollectionKey = '__recipes_collection_key__';
 
-String? _getValue(String key) => _plugin.getString(key);
+  String? _getValue(String key) => _plugin.getString(key);
   Future<void> _setValue(String key, String value) =>
       _plugin.setString(key, value);
 
-
-  void _init(){
+  void _init() {
     final menuJson = _getValue(kRecipesCollectionKey);
     if (menuJson != null) {
       final menu = List<Map<dynamic, dynamic>>.from(
@@ -44,5 +43,38 @@ String? _getValue(String key) => _plugin.getString(key);
   }
 
   @override
-  Stream<List<Menu>> getMenuList=>_menuStreamController.asBroadcastStream();
+  Stream<List<Menu>> getMenuList() => _menuStreamController.asBroadcastStream();
+
+  @override
+  Future<Menu> getMenu(String id) async {
+    final menuList = [..._menuStreamController.value];
+    final menuIndex = menuList.indexWhere((m) => m.id == id);
+    return menuList[menuIndex];
+  }
+
+  @override
+  Future<void> saveMenu(Menu menu) {
+    final menuList = [..._menuStreamController.value];
+    final menuIndex = menuList.indexWhere((m) => m.id == menu.id);
+    if (menuIndex >= 0) {
+      menuList[menuIndex] = menu;
+    } else {
+      menuList.add(menu);
+    }
+    _menuStreamController.add(menuList);
+    return _setValue(kRecipesCollectionKey, json.encode(menuList));
+  }
+
+  @override
+  Future<void> deleteMenu(String id) {
+    final menuList = [..._menuStreamController.value];
+    final menuIndex = menuList.indexWhere((m) => m.id == id);
+    if (menuIndex == -1) {
+      throw MenuNotFoundException();
+    } else {
+      menuList.removeAt(menuIndex);
+      _menuStreamController.add(menuList);
+      return _setValue(kRecipesCollectionKey, json.encode(menuList));
+    }
+  }
 }
