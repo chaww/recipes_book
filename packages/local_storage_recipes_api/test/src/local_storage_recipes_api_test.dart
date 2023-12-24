@@ -12,7 +12,7 @@ void main() {
   group('LocalStorageRecipesApi', () {
     late SharedPreferences plugin;
 
-    final menuList = [
+    final book = [
       Menu(
         id: '1',
         category: 'coffee',
@@ -82,7 +82,7 @@ void main() {
 
     setUp(() {
       plugin = MockSharedPreferences();
-      when(() => plugin.getString(any())).thenReturn(json.encode(menuList));
+      when(() => plugin.getString(any())).thenReturn(json.encode(book));
       when(() => plugin.setString(any(), any())).thenAnswer((_) async => true);
     });
 
@@ -100,11 +100,11 @@ void main() {
         );
       });
 
-      group('initializes the menuList stream', () {
-        test('with existing menuList if present', () {
+      group('initializes the book stream', () {
+        test('with existing book if present', () {
           final subject = createSubject();
 
-          expect(subject.getMenuList(), emits(menuList));
+          expect(subject.getBook(), emits(book));
           verify(
             () => plugin.getString(
               LocalStorageRecipesApi.kRecipesCollectionKey,
@@ -117,7 +117,7 @@ void main() {
 
           final subject = createSubject();
 
-          expect(subject.getMenuList(), emits(const <Menu>[]));
+          expect(subject.getBook(), emits(const <Menu>[]));
           verify(
             () => plugin.getString(
               LocalStorageRecipesApi.kRecipesCollectionKey,
@@ -127,10 +127,10 @@ void main() {
       });
     });
 
-    test('getMenuList returns stream of current list menuList', () {
+    test('getBook returns stream of current list menu', () {
       expect(
-        createSubject().getMenuList(),
-        emits(menuList),
+        createSubject().getBook(),
+        emits(book),
       );
     });
 
@@ -154,17 +154,17 @@ void main() {
           ],
         );
 
-        final newMenuList = [...menuList, newMenu];
+        final newBook = [...book, newMenu];
 
         final subject = createSubject();
 
         expect(subject.saveMenu(newMenu), completes);
-        expect(subject.getMenuList(), emits(newMenuList));
+        expect(subject.getBook(), emits(newBook));
 
         verify(
           () => plugin.setString(
             LocalStorageRecipesApi.kRecipesCollectionKey,
-            json.encode(newMenuList),
+            json.encode(newBook),
           ),
         ).called(1);
       });
@@ -187,34 +187,34 @@ void main() {
             ),
           ],
         );
-        final newMenuList = [...menuList.sublist(0, 1), updatedMenu];
+        final newBook = [...book.sublist(0, 1), updatedMenu];
 
         final subject = createSubject();
 
         expect(subject.saveMenu(updatedMenu), completes);
-        expect(subject.getMenuList(), emits(newMenuList));
+        expect(subject.getBook(), emits(newBook));
 
         verify(
           () => plugin.setString(
             LocalStorageRecipesApi.kRecipesCollectionKey,
-            json.encode(newMenuList),
+            json.encode(newBook),
           ),
         ).called(1);
       });
 
       group('deleteMenu', () {
         test('deletes existing Menu', () {
-          final newMenuList = menuList.sublist(1);
+          final newBook = book.sublist(1);
 
           final subject = createSubject();
 
-          expect(subject.deleteMenu(menuList[0].id), completes);
-          expect(subject.getMenuList(), emits(newMenuList));
+          expect(subject.deleteMenu(book[0].id), completes);
+          expect(subject.getBook(), emits(newBook));
 
           verify(
             () => plugin.setString(
               LocalStorageRecipesApi.kRecipesCollectionKey,
-              json.encode(newMenuList),
+              json.encode(newBook),
             ),
           ).called(1);
         });

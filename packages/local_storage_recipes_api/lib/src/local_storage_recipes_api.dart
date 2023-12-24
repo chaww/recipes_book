@@ -43,38 +43,38 @@ class LocalStorageRecipesApi extends RecipesApi {
   }
 
   @override
-  Stream<List<Menu>> getMenuList() => _menuStreamController.asBroadcastStream();
+  Stream<List<Menu>> getBook() => _menuStreamController.asBroadcastStream();
 
   @override
   Future<Menu> getMenu(String id) async {
-    final menuList = [..._menuStreamController.value];
-    final menuIndex = menuList.indexWhere((m) => m.id == id);
-    return menuList[menuIndex];
+    final book = [..._menuStreamController.value];
+    final menuIndex = book.indexWhere((m) => m.id == id);
+    return book[menuIndex];
   }
 
   @override
   Future<void> saveMenu(Menu menu) {
-    final menuList = [..._menuStreamController.value];
-    final menuIndex = menuList.indexWhere((m) => m.id == menu.id);
+    final book = [..._menuStreamController.value];
+    final menuIndex = book.indexWhere((m) => m.id == menu.id);
     if (menuIndex >= 0) {
-      menuList[menuIndex] = menu;
+      book[menuIndex] = menu;
     } else {
-      menuList.add(menu);
+      book.add(menu);
     }
-    _menuStreamController.add(menuList);
-    return _setValue(kRecipesCollectionKey, json.encode(menuList));
+    _menuStreamController.add(book);
+    return _setValue(kRecipesCollectionKey, json.encode(book));
   }
 
   @override
   Future<void> deleteMenu(String id) {
-    final menuList = [..._menuStreamController.value];
-    final menuIndex = menuList.indexWhere((m) => m.id == id);
+    final book = [..._menuStreamController.value];
+    final menuIndex = book.indexWhere((m) => m.id == id);
     if (menuIndex == -1) {
       throw MenuNotFoundException();
     } else {
-      menuList.removeAt(menuIndex);
-      _menuStreamController.add(menuList);
-      return _setValue(kRecipesCollectionKey, json.encode(menuList));
+      book.removeAt(menuIndex);
+      _menuStreamController.add(book);
+      return _setValue(kRecipesCollectionKey, json.encode(book));
     }
   }
 }

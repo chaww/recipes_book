@@ -4,7 +4,7 @@ abstract class RecipesApi {
   const RecipesApi();
 
   /// Provides a [Stream] of all menu list.
-  Stream<List<Menu>> getMenuList();
+  Stream<List<Menu>> getBook();
 
   Future<Menu> getMenu(String id);
 
