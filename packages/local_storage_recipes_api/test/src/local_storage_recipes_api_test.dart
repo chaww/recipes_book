@@ -75,7 +75,7 @@ void main() {
               Ingredient(name: 'กาแฟคั่วกลาง', amount: '1', unit: 'ML'),
               Ingredient(name: 'ฟองนมร้อน', amount: '2', unit: 'ML'),
             ],
-          )
+          ),
         ],
       ),
     ];
