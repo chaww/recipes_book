@@ -1,9 +1,9 @@
 # Widgets
-- Explore
+- ExploreMenu
   - SelectGroup (All,Coffee,Tea,Smoothie,Soda,Other)
   - MenuItem (Image,Name)
   - AddButton
-- ViewDetails
+- ViewMenu
   - Image (switch case IceOptions)
   - descriptions/concept ? (Free Text)
   - IceOptions (Hot,Ice,Smoothie)
@@ -14,10 +14,10 @@
   - MiniMenuItem (??)
 
 # Widgets in Teblet Screen
-- Explore
-  - Explore (left ~80%)
+- ExploreMenu
+  - ExploreMenu (left ~80%)
   - ViewHistory (right ~20%)
-- ViewDetails
-  - ViewDetails
+- ViewMenu
+  - ViewMenu
   - ViewHistory (right ~20%)
 - AddMenu/EditMenu
