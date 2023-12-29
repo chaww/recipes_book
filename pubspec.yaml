@@ -15,6 +15,12 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: ^0.18.0
+  local_storage_recipes_api:
+    path: packages/local_storage_recipes_api
+  recipes_api:
+    path: packages/recipes_api
+  recipes_repository:
+    path: packages/recipes_repository
 
 dev_dependencies:
   bloc_test: ^9.1.4
