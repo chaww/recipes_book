@@ -1,10 +1,7 @@
 import 'package:recipes_api/recipes_api.dart';
 
-/// {@template recipes_repository}
-/// A Very Good Project created by Very Good CLI.
-/// {@endtemplate}
 class RecipesRepository {
-  /// {@macro recipes_repository}
+  // ignore: public_member_api_docs
   const RecipesRepository({
     required RecipesApi recipesApi,
   }) : _recipesApi = recipesApi;

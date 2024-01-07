@@ -7,6 +7,7 @@ part 'menu.g.dart';
 
 @JsonSerializable()
 class Menu extends Equatable {
+  // ignore: public_member_api_docs
   Menu({
     String? id,
     required this.name,
