@@ -72,8 +72,10 @@ Future<void> mock_recipes({
     ),
   ];
 
-  await recipesRepository.saveMenu(book[0]);
+  for (final menu in book) {
+    await recipesRepository.saveMenu(menu);
+  }
 
   final output = await recipesRepository.getMenu('1');
-  print(output.name);
+  print('__mock__ mock_recipes');
 }
