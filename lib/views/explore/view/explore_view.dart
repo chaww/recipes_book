@@ -1,36 +1,81 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipes_book/views/explore/bloc/explore_bloc.dart';
+import 'package:recipes_book/views/explore/view/GridBuilder.dart';
+import 'package:recipes_book/widgets/Background.dart';
+import 'package:recipes_repository/recipes_repository.dart';
 
-class ExploreView extends StatefulWidget {
-  const ExploreView({super.key});
-
-  final String title = 'explore';
+class ExplorePage extends StatelessWidget {
+  const ExplorePage({super.key});
 
   @override
-  State<ExploreView> createState() => _ExploreView();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => ExploreBloc(
+        recipesRepository: context.read<RecipesRepository>(),
+      )..add(const MenuListSubscriptionRequested()),
+      child: const _ExploreView(),
+    );
+  }
 }
 
-class _ExploreView extends State<ExploreView> {
+class _ExploreView extends StatelessWidget {
+  const _ExploreView({super.key});
+
   @override
   Widget build(BuildContext context) {
     const style = TextStyle(fontSize: 20);
-    // final sizeWidth = MediaQuery.sizeOf(context).width;
+    final sizeWidth = MediaQuery.sizeOf(context).width;
+    const tabsList = ['ทั้งหมด', 'กาแฟ', 'ชา', 'สมูทตี้', 'โซดา'];
+
+    // print(context.watch<ExploreBloc>().state.menuList);
 
     return DefaultTabController(
       initialIndex: 0,
-      length: 1,
+      length: tabsList.length,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text(widget.title),
-          bottom: const TabBar(
-            // isScrollable: sizeWidth <= (typeList.length + 1) * 120,
-            tabs: <Widget>[
-              Tab(
-                child: Text(
-                  'data',
-                  style: style,
+          title: const Text('สูตร'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.add),
+              iconSize: 32,
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('This is a snackbar'),
+                  ),
+                );
+              },
+            ),
+          ],
+          bottom: TabBar(
+            isScrollable: sizeWidth <= (tabsList.length + 1) * 120,
+            tabs: [
+              ...List.generate(
+                tabsList.length,
+                (index) => Tab(
+                  child: Text(
+                    tabsList[index],
+                    style: style,
+                  ),
                 ),
-              )
+              ),
+            ],
+          ),
+        ),
+        body: BackgroundWidget(
+          childWidget: TabBarView(
+            children: <Widget>[
+              ...List.generate(
+                tabsList.length,
+                (index) => Center(
+                  child: GridBuilder(
+                    filterTypeName: tabsList[index],
+                  ),
+                ),
+              ),
             ],
           ),
         ),

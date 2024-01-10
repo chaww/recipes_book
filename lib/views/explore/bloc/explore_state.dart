@@ -1,10 +1,20 @@
 part of 'explore_bloc.dart';
 
-sealed class ExploreState extends Equatable {
-  const ExploreState();
-  
+class ExploreState extends Equatable {
+  const ExploreState({
+    this.menuList = const [],
+  });
+
+  final List<Menu> menuList;
+
+  ExploreState copyWith({
+    List<Menu> Function()? menuList,
+  }) {
+    return ExploreState(
+      menuList: menuList != null ? menuList() : this.menuList,
+    );
+  }
+
   @override
   List<Object> get props => [];
 }
-
-final class ExploreInitial extends ExploreState {}
