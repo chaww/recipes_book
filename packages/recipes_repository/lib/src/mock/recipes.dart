@@ -1,9 +1,7 @@
 import 'package:recipes_api/recipes_api.dart';
 import 'package:recipes_repository/recipes_repository.dart';
 
-Future<void> mock_recipes({
-  required RecipesRepository recipesRepository,
-}) async {
+Future<void> mock_recipes({required RecipesApi recipesApi}) async {
   final book = [
     Menu(
       id: '1',
@@ -70,12 +68,29 @@ Future<void> mock_recipes({
         ),
       ],
     ),
+    Menu(
+      id: '3',
+      category: 'coffee',
+      image: 'b003.jpg',
+      name: 'ชาพีช',
+      recipeList: [
+        Recipe(
+          name: 'ชาพีช',
+          type: 'เย็น',
+          image: 'b003.jpg',
+          ingredients: [
+            Ingredient(name: 'ผงชาพีช', amount: '4', unit: 'ML'),
+            Ingredient(name: 'น้ำร้อน', amount: '5', unit: 'ML'),
+          ],
+        ),
+      ],
+    ),
   ];
 
   for (final menu in book) {
-    await recipesRepository.saveMenu(menu);
+    await recipesApi.saveMenu(menu);
   }
 
-  final output = await recipesRepository.getMenu('1');
+  final output = await recipesApi.getMenu('1');
   print('__mock__ mock_recipes');
 }

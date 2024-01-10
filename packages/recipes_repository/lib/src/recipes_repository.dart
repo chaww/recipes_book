@@ -1,4 +1,5 @@
 import 'package:recipes_api/recipes_api.dart';
+import 'package:recipes_repository/src/mock/mock.dart';
 
 class RecipesRepository {
   // ignore: public_member_api_docs
@@ -15,4 +16,6 @@ class RecipesRepository {
   Future<void> saveMenu(Menu menu) => _recipesApi.saveMenu(menu);
 
   Future<void> deleteMenu(String id) => _recipesApi.deleteMenu(id);
+
+  Future<void> mockData() => mock_data(recipesApi: _recipesApi);
 }
