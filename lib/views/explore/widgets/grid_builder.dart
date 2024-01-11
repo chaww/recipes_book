@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipes_book/views/explore/bloc/explore_bloc.dart';
-import 'package:recipes_book/views/explore/view/MenuItem.dart';
+import 'package:recipes_book/views/explore/widgets/widgets.dart';
 
 class GridBuilder extends StatelessWidget {
   const GridBuilder({super.key, this.filterTypeName = ''});
