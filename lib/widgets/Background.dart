@@ -2,9 +2,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class BackgroundWidget extends StatelessWidget {
+  const BackgroundWidget({required this.childWidget, super.key});
   final Widget childWidget;
-
-  const BackgroundWidget({super.key, required this.childWidget});
 
   @override
   Widget build(BuildContext context) {
