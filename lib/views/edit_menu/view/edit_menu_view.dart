@@ -30,8 +30,8 @@ class _EditMenuPage extends StatelessWidget {
       body: ListView(
         shrinkWrap: true,
         children: const <Widget>[
-          MenuSegment(),
-          OptionsSegment(),
+          MenuSection(),
+          OptionsSection(),
         ],
       ),
     );

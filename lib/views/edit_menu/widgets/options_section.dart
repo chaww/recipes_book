@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class OptionsSegment extends StatelessWidget {
-  const OptionsSegment({super.key});
+class OptionsSection extends StatelessWidget {
+  const OptionsSection({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class MenuSegment extends StatelessWidget {
-  const MenuSegment({super.key});
+class MenuSection extends StatelessWidget {
+  const MenuSection({super.key});
 
   @override
   Widget build(BuildContext context) {

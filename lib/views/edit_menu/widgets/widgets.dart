@@ -1,2 +1,2 @@
-export 'menu_segment.dart';
-export 'options_segment.dart';
+export 'menu_section.dart';
+export 'options_section.dart';
