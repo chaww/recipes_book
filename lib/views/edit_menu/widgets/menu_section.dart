@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipes_book/views/edit_menu/widgets/widgets.dart';
 
 class MenuSection extends StatelessWidget {
   const MenuSection({super.key});
@@ -9,13 +10,7 @@ class MenuSection extends StatelessWidget {
       padding: EdgeInsets.all(16),
       child: Column(
         children: [
-          Card(
-            child: SizedBox(
-              height: 300,
-              width: 200,
-              child: Text('image pick'),
-            ),
-          ),
+          ImageSection(),
           TextField(
             decoration: InputDecoration(
               // border: OutlineInputBorder(),
