@@ -1,54 +1,69 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipes_book/views/edit_recipe/bloc/edit_recipe_bloc.dart';
 
 class OptionSection extends StatelessWidget {
-  const OptionSection({super.key});
+  const OptionSection({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(8),
-      child: Card(
-        child: Padding(
-          padding: EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              DropdownOption(),
-              // SizedBox(
-              //   height: 8,
-              // ),
-              TextField(
-                decoration: InputDecoration(
-                  // border: OutlineInputBorder(),
-                  labelText: 'ชื่อตัวเลือก',
-                ),
+    final optionSelect = context.watch<EditRecipeBloc>().state.optionSelect;
+    final optionValue = context.watch<EditRecipeBloc>().state.optionValue;
+
+    final showOptionName = optionValue != optionSelect.first;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 16,
+      ),
+      child: Column(
+        children: [
+          const DropdownOption(),
+          if (showOptionName)
+            const SizedBox(
+              height: 16,
+            ),
+          if (showOptionName)
+            const TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'ชื่อตัวเลือก',
               ),
-            ],
-          ),
-        ),
+            ),
+        ],
       ),
     );
   }
 }
 
-const List<String> list = <String>['ไม่ระบุ', 'เพิ่มตัวเลือกใหม่'];
-
 class DropdownOption extends StatelessWidget {
-  const DropdownOption({super.key});
+  const DropdownOption({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final optionSelect = context.read<EditRecipeBloc>().state.optionSelect;
+
     return LayoutBuilder(
       builder: (context, constraints) => DropdownMenu(
         width: constraints.maxWidth,
-        initialSelection: list.first,
+        initialSelection: optionSelect.first,
         label: const Text('ตัวเลือก'),
-        inputDecorationTheme: InputDecorationTheme(
-            // filled: true,
-            ),
-        onSelected: (e) {},
-        dropdownMenuEntries:
-            list.map((e) => DropdownMenuEntry(value: e, label: e)).toList(),
+        // inputDecorationTheme: InputDecorationTheme(
+        //   filled: true,
+        // ),
+        onSelected: (e) {
+          context.read<EditRecipeBloc>().add(
+                OptionSelectOnChanged(optionValue: e ?? optionSelect.first),
+              );
+        },
+        dropdownMenuEntries: optionSelect
+            .map((e) => DropdownMenuEntry(value: e, label: e))
+            .toList(),
       ),
     );
   }
