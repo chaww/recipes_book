@@ -11,6 +11,7 @@ class EditRecipeBloc extends Bloc<EditRecipeEvent, EditRecipeState> {
   })  : _recipesRepository = recipesRepository,
         super(EditRecipeInitial()) {
     on<OptionSelectOnChanged>(_optionSelectOnChanged);
+    on<OptionNameOnChange>(_optionNameOnChange);
   }
 
   final RecipesRepository _recipesRepository;
@@ -20,7 +21,12 @@ class EditRecipeBloc extends Bloc<EditRecipeEvent, EditRecipeState> {
     Emitter<EditRecipeState> emit,
   ) {
     emit(state.copyWith(optionValue: () => event.optionValue));
-    print('_optionSelectOnChanged');
-    print(event.optionValue);
+  }
+
+  void _optionNameOnChange(
+    OptionNameOnChange event,
+    Emitter<EditRecipeState> emit,
+  ) {
+    print(event.optionName);
   }
 }

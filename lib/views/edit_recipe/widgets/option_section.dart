@@ -9,10 +9,8 @@ class OptionSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final optionSelect = context.watch<EditRecipeBloc>().state.optionSelect;
-    final optionValue = context.watch<EditRecipeBloc>().state.optionValue;
-
-    final showOptionName = optionValue != optionSelect.first;
+    final state = context.watch<EditRecipeBloc>().state;
+    final showOptionName = state.optionValue != state.optionSelect.first;
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -27,8 +25,12 @@ class OptionSection extends StatelessWidget {
               height: 16,
             ),
           if (showOptionName)
-            const TextField(
-              decoration: InputDecoration(
+            TextFormField(
+              initialValue: state.optionName,
+              onChanged: (value) {
+                context.read<EditRecipeBloc>().add(OptionNameOnChange(value));
+              },
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'ชื่อตัวเลือก',
               ),
@@ -58,7 +60,7 @@ class DropdownOption extends StatelessWidget {
         // ),
         onSelected: (e) {
           context.read<EditRecipeBloc>().add(
-                OptionSelectOnChanged(optionValue: e ?? optionSelect.first),
+                OptionSelectOnChanged(e ?? optionSelect.first),
               );
         },
         dropdownMenuEntries: optionSelect

@@ -9,7 +9,6 @@ class EditRecipeState extends Equatable {
 
   final List<String> optionSelect;
   final String optionValue;
-
   final String optionName;
 
   EditRecipeState copyWith({
