@@ -5,12 +5,14 @@ class ImageSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const imageSize = 200;
+
     return Column(
       children: [
         Card(
           child: SizedBox(
-            height: 200 * 4 / 3,
-            width: 200 * 3 / 4,
+            height: imageSize * 4 / 3,
+            width: imageSize * 3 / 4,
             child: Center(
               child: IconButton(
                 onPressed: () {},
