@@ -15,8 +15,8 @@ Future<void> mock_recipes({required RecipesApi recipesApi}) async {
           type: 'ร้อน',
           image: 'a001.png',
           ingredients: [
-            Ingredient(name: 'กาแฟคั่วกลาง', amount: '1', unit: 'ML'),
-            Ingredient(name: 'น้ำร้อน', amount: '2', unit: 'ML'),
+            Ingredient(name: 'กาแฟคั่วกลาง', value: '1', unit: 'ML'),
+            Ingredient(name: 'น้ำร้อน', value: '2', unit: 'ML'),
           ],
         ),
         Recipe(
@@ -25,8 +25,8 @@ Future<void> mock_recipes({required RecipesApi recipesApi}) async {
           type: 'เย็น',
           image: 'a002.png',
           ingredients: [
-            Ingredient(name: 'กาแฟคั่วกลาง', amount: '3', unit: 'ML'),
-            Ingredient(name: 'น้ำเย็น', amount: '4', unit: 'ML'),
+            Ingredient(name: 'กาแฟคั่วกลาง', value: '3', unit: 'ML'),
+            Ingredient(name: 'น้ำเย็น', value: '4', unit: 'ML'),
           ],
         ),
         Recipe(
@@ -35,8 +35,8 @@ Future<void> mock_recipes({required RecipesApi recipesApi}) async {
           type: 'ร้อน',
           image: 'a003.png',
           ingredients: [
-            Ingredient(name: 'กาแฟคั่วอ่อน', amount: '5', unit: 'ML'),
-            Ingredient(name: 'น้ำร้อน', amount: '6', unit: 'ML'),
+            Ingredient(name: 'กาแฟคั่วอ่อน', value: '5', unit: 'ML'),
+            Ingredient(name: 'น้ำร้อน', value: '6', unit: 'ML'),
           ],
         ),
         Recipe(
@@ -45,8 +45,8 @@ Future<void> mock_recipes({required RecipesApi recipesApi}) async {
           type: 'เย็น',
           image: 'a004.png',
           ingredients: [
-            Ingredient(name: 'กาแฟคั่วอ่อน', amount: '7', unit: 'ML'),
-            Ingredient(name: 'น้ำเย็น', amount: '8', unit: 'ML'),
+            Ingredient(name: 'กาแฟคั่วอ่อน', value: '7', unit: 'ML'),
+            Ingredient(name: 'น้ำเย็น', value: '8', unit: 'ML'),
           ],
         ),
       ],
@@ -62,8 +62,8 @@ Future<void> mock_recipes({required RecipesApi recipesApi}) async {
           type: 'ร้อน',
           image: 'b002.jpg',
           ingredients: [
-            Ingredient(name: 'กาแฟคั่วกลาง', amount: '1', unit: 'ML'),
-            Ingredient(name: 'ฟองนมร้อน', amount: '2', unit: 'ML'),
+            Ingredient(name: 'กาแฟคั่วกลาง', value: '1', unit: 'ML'),
+            Ingredient(name: 'ฟองนมร้อน', value: '2', unit: 'ML'),
           ],
         ),
       ],
@@ -79,8 +79,8 @@ Future<void> mock_recipes({required RecipesApi recipesApi}) async {
           type: 'เย็น',
           image: 'b003.jpg',
           ingredients: [
-            Ingredient(name: 'ผงชาพีช', amount: '4', unit: 'ML'),
-            Ingredient(name: 'น้ำร้อน', amount: '5', unit: 'ML'),
+            Ingredient(name: 'ผงชาพีช', value: '4', unit: 'ML'),
+            Ingredient(name: 'น้ำร้อน', value: '5', unit: 'ML'),
           ],
         ),
       ],

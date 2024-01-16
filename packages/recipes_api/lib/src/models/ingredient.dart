@@ -7,23 +7,23 @@ part 'ingredient.g.dart';
 @JsonSerializable()
 class Ingredient extends Equatable {
   final String name;
-  final String amount;
+  final String value;
   final String unit;
 
   Ingredient({
     required this.name,
-    this.amount = '',
+    this.value = '',
     this.unit = '',
   });
 
   Ingredient copyWith({
     String? name,
-    String? amount,
+    String? value,
     String? unit,
   }) {
     return Ingredient(
       name: name ?? this.name,
-      amount: amount ?? this.amount,
+      value: value ?? this.value,
       unit: unit ?? this.unit,
     );
   }
@@ -33,5 +33,5 @@ class Ingredient extends Equatable {
   JsonMap toJson() => _$IngredientToJson(this);
 
   @override
-  List<Object> get props => [name, amount, unit];
+  List<Object> get props => [name, value, unit];
 }
