@@ -24,3 +24,31 @@ class OptionNameOnChange extends EditRecipeEvent {
   @override
   List<Object> get props => [optionName];
 }
+
+class IngredientEdit extends EditRecipeEvent {
+  const IngredientEdit({required this.item, required this.index});
+
+  final Ingredient item;
+  final int index;
+
+  @override
+  List<Object> get props => [item, index];
+}
+
+class IngredientAdd extends EditRecipeEvent {
+  const IngredientAdd(this.item);
+
+  final Ingredient item;
+
+  @override
+  List<Object> get props => [item];
+}
+
+class IngredientDelete extends EditRecipeEvent {
+  const IngredientDelete(this.index);
+
+  final int index;
+
+  @override
+  List<Object> get props => [index];
+}
