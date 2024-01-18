@@ -2,4 +2,5 @@
 library recipes_repository;
 
 export 'src/recipes_repository.dart';
-// export 'package:recipes_api/recipes_api.dart' show Menu;
+export 'src/recipes_images.dart';
+export 'package:recipes_api/recipes_api.dart';
