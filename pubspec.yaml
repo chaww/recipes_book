@@ -15,12 +15,17 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: ^0.18.0
+  image_picker: ^1.0.7
   local_storage_recipes_api:
     path: packages/local_storage_recipes_api
   recipes_api:
     path: packages/recipes_api
   recipes_repository:
     path: packages/recipes_repository
+  # --
+  video_player: ^2.8.2
+  mime: ^1.0.4
+  # --
 
 dev_dependencies:
   bloc_test: ^9.1.4
