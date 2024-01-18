@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:recipes_api/recipes_api.dart';
@@ -11,30 +13,39 @@ class EditRecipeBloc extends Bloc<EditRecipeEvent, EditRecipeState> {
     required RecipesRepository recipesRepository,
   })  : _recipesRepository = recipesRepository,
         super(EditRecipeState()) {
-    on<OptionSelectOnChanged>(_optionSelectOnChanged);
-    on<OptionNameOnChange>(_optionNameOnChange);
-    on<IngredientAdd>(_ingredientAdd);
-    on<IngredientEdit>(_ingredientEdit);
-    on<IngredientDelete>(_ingredientDelete);
+    on<OptionSelectOnChanged>(_onOptionSelectOnChanged);
+    on<OptionNameOnChange>(_onOptionNameOnChange);
+    on<IngredientAdd>(_onIngredientAdd);
+    on<IngredientEdit>(_onIngredientEdit);
+    on<IngredientDelete>(_onIngredientDelete);
+    on<ImagePathChange>(_onImagePathChange);
   }
 
   final RecipesRepository _recipesRepository;
 
-  void _optionSelectOnChanged(
+  void _onOptionSelectOnChanged(
     OptionSelectOnChanged event,
     Emitter<EditRecipeState> emit,
   ) {
     emit(state.copyWith(optionValue: () => event.optionValue));
   }
 
-  void _optionNameOnChange(
+  void _onOptionNameOnChange(
     OptionNameOnChange event,
     Emitter<EditRecipeState> emit,
   ) {
     emit(state.copyWith(optionName: () => event.optionName));
   }
 
-  void _ingredientAdd(
+  void _onImagePathChange(
+    ImagePathChange event,
+    Emitter<EditRecipeState> emit,
+  ) {
+    log(event.path);
+    emit(state.copyWith(imagePath: () => event.path));
+  }
+
+  void _onIngredientAdd(
     IngredientAdd event,
     Emitter<EditRecipeState> emit,
   ) {
@@ -45,7 +56,7 @@ class EditRecipeBloc extends Bloc<EditRecipeEvent, EditRecipeState> {
     );
   }
 
-  void _ingredientEdit(
+  void _onIngredientEdit(
     IngredientEdit event,
     Emitter<EditRecipeState> emit,
   ) {
@@ -58,7 +69,7 @@ class EditRecipeBloc extends Bloc<EditRecipeEvent, EditRecipeState> {
     );
   }
 
-  void _ingredientDelete(
+  void _onIngredientDelete(
     IngredientDelete event,
     Emitter<EditRecipeState> emit,
   ) {

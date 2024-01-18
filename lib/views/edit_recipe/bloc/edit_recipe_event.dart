@@ -25,6 +25,15 @@ class OptionNameOnChange extends EditRecipeEvent {
   List<Object> get props => [optionName];
 }
 
+class ImagePathChange extends EditRecipeEvent {
+  const ImagePathChange(this.path);
+
+  final String path;
+
+  @override
+  List<Object> get props => [path];
+}
+
 class IngredientEdit extends EditRecipeEvent {
   const IngredientEdit({required this.item, required this.index});
 

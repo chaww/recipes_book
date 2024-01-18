@@ -5,6 +5,7 @@ class EditRecipeState extends Equatable {
     this.optionSelect = const ['* ไม่ระบุ', '* เพิ่มตัวเลือกใหม่'],
     this.optionValue = '* ไม่ระบุ',
     this.optionName = '',
+    this.imagePath = '',
     this.ingredientList = const [],
   });
 
@@ -12,18 +13,22 @@ class EditRecipeState extends Equatable {
   final String optionValue;
   final String optionName;
 
+  final String imagePath;
+
   final List<Ingredient> ingredientList;
 
   EditRecipeState copyWith({
     List<String> Function()? optionSelect,
     String Function()? optionValue,
     String Function()? optionName,
+    String Function()? imagePath,
     List<Ingredient> Function()? ingredientList,
   }) {
     return EditRecipeState(
       optionSelect: optionSelect != null ? optionSelect() : this.optionSelect,
       optionValue: optionValue != null ? optionValue() : this.optionValue,
       optionName: optionName != null ? optionName() : this.optionName,
+      imagePath: imagePath != null ? imagePath() : this.imagePath,
       ingredientList:
           ingredientList != null ? ingredientList() : this.ingredientList,
     );
@@ -31,5 +36,5 @@ class EditRecipeState extends Equatable {
 
   @override
   List<Object> get props =>
-      [optionSelect, optionValue, optionName, ingredientList];
+      [optionSelect, optionValue, optionName, imagePath, ingredientList];
 }
