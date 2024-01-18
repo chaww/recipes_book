@@ -25,13 +25,12 @@ class OptionNameOnChange extends EditRecipeEvent {
   List<Object> get props => [optionName];
 }
 
-class ImagePathChange extends EditRecipeEvent {
-  const ImagePathChange(this.path);
+class ShowDisplayPickImageDialog extends EditRecipeEvent {
+  const ShowDisplayPickImageDialog();
+}
 
-  final String path;
-
-  @override
-  List<Object> get props => [path];
+class ImageDelete extends EditRecipeEvent {
+  const ImageDelete();
 }
 
 class IngredientEdit extends EditRecipeEvent {

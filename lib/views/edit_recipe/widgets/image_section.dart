@@ -1,43 +1,16 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:mime/mime.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipes_book/views/edit_recipe/bloc/edit_recipe_bloc.dart';
 
-class ImageSection extends StatefulWidget {
+class ImageSection extends StatelessWidget {
   const ImageSection({super.key});
-
-  @override
-  State<ImageSection> createState() => _ImageSectionState();
-}
-
-class _ImageSectionState extends State<ImageSection> {
-  // const _ImageSectionState({super.key});
-
-  var path = '';
-
-  Future<void> displayPickImageDialog() async {
-    final picker = ImagePicker();
-    final image = await picker.pickImage(
-      source: ImageSource.gallery,
-      maxWidth: 1600,
-      maxHeight: 1600,
-    );
-    final mediaFileList = image == null ? null : <XFile>[image];
-    final mime = lookupMimeType(mediaFileList![0].path);
-
-    setState(() {
-      path = mediaFileList![0].path;
-    });
-
-    log(mediaFileList![0].path);
-  }
 
   @override
   Widget build(BuildContext context) {
     const imageSize = 200;
-
+    final imagePath = context.watch<EditRecipeBloc>().state.imagePath;
     return Column(
       children: [
         Card(
@@ -47,10 +20,10 @@ class _ImageSectionState extends State<ImageSection> {
             height: imageSize * 1.2,
             width: imageSize * 1,
             child: Container(
-              decoration: path != ''
+              decoration: imagePath != ''
                   ? BoxDecoration(
                       image: DecorationImage(
-                        image: FileImage(File(path)),
+                        image: FileImage(File(imagePath)),
                         fit: BoxFit.cover,
                       ),
                     )
@@ -69,18 +42,20 @@ class _ImageSectionState extends State<ImageSection> {
                   //   ),
                   FilledButton.tonalIcon(
                     onPressed: () async {
-                      await displayPickImageDialog();
+                      context
+                          .read<EditRecipeBloc>()
+                          .add(const ShowDisplayPickImageDialog());
                     },
-                    icon: Icon(
-                        path == '' ? Icons.add_photo_alternate : Icons.photo),
-                    label: Text(path == '' ? 'เพิ่มรูปภาพ' : 'เปลี่ยนรูปภาพ'),
+                    icon: Icon(imagePath == ''
+                        ? Icons.add_photo_alternate
+                        : Icons.photo),
+                    label:
+                        Text(imagePath == '' ? 'เพิ่มรูปภาพ' : 'เปลี่ยนรูปภาพ'),
                   ),
-                  if (path != '')
+                  if (imagePath != '')
                     FilledButton.tonalIcon(
                       onPressed: () {
-                        setState(() {
-                          path = '';
-                        });
+                        context.read<EditRecipeBloc>().add(const ImageDelete());
                       },
                       icon: Icon(Icons.delete_forever),
                       label: Text('ลบรูปภาพ'),

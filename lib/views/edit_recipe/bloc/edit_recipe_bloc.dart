@@ -12,13 +12,14 @@ class EditRecipeBloc extends Bloc<EditRecipeEvent, EditRecipeState> {
   EditRecipeBloc({
     required RecipesRepository recipesRepository,
   })  : _recipesRepository = recipesRepository,
-        super(EditRecipeState()) {
+        super(const EditRecipeState()) {
     on<OptionSelectOnChanged>(_onOptionSelectOnChanged);
     on<OptionNameOnChange>(_onOptionNameOnChange);
     on<IngredientAdd>(_onIngredientAdd);
     on<IngredientEdit>(_onIngredientEdit);
     on<IngredientDelete>(_onIngredientDelete);
-    on<ImagePathChange>(_onImagePathChange);
+    on<ShowDisplayPickImageDialog>(_onShowDisplayPickImageDialog);
+    on<ImageDelete>(_onImageDelete);
   }
 
   final RecipesRepository _recipesRepository;
@@ -37,12 +38,24 @@ class EditRecipeBloc extends Bloc<EditRecipeEvent, EditRecipeState> {
     emit(state.copyWith(optionName: () => event.optionName));
   }
 
-  void _onImagePathChange(
-    ImagePathChange event,
+  Future<void> _onShowDisplayPickImageDialog(
+    ShowDisplayPickImageDialog event,
+    Emitter<EditRecipeState> emit,
+  ) async {
+    final imagePath = await _recipesRepository.displayPickImageDialog(
+      maxHeight: 1600,
+      maxWidth: 1600,
+    );
+    emit(
+      state.copyWith(imagePath: () => imagePath != null ? imagePath[0] : ''),
+    );
+  }
+
+  void _onImageDelete(
+    ImageDelete event,
     Emitter<EditRecipeState> emit,
   ) {
-    log(event.path);
-    emit(state.copyWith(imagePath: () => event.path));
+    emit(state.copyWith(imagePath: () => ''));
   }
 
   void _onIngredientAdd(

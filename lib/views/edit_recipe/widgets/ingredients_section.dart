@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipes_api/recipes_api.dart';
 import 'package:recipes_book/views/edit_recipe/bloc/edit_recipe_bloc.dart';
-import 'package:recipes_repository/recipes_repository.dart';
 
 class IngreditntsSection extends StatelessWidget {
   const IngreditntsSection({super.key});
@@ -106,8 +105,8 @@ class IngreditntEdit extends StatelessWidget {
           context: context,
           builder: (_) => IngredientDialog(parentContext: context),
         ),
-        icon: Icon(Icons.add),
-        label: Text('เพิ่มรายการวัตถุดิบใหม่'),
+        icon: const Icon(Icons.add),
+        label: const Text('เพิ่มรายการวัตถุดิบใหม่'),
       ),
     );
   }
