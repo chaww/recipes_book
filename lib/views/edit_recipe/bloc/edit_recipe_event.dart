@@ -7,13 +7,12 @@ sealed class EditRecipeEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class OptionSelectOnChanged extends EditRecipeEvent {
-  const OptionSelectOnChanged(this.optionValue);
+class InitialState extends EditRecipeEvent {
+  const InitialState();
+}
 
-  final String optionValue;
-
-  @override
-  List<Object> get props => [optionValue];
+class EditRecipeSubmitted extends EditRecipeEvent {
+  const EditRecipeSubmitted();
 }
 
 class OptionNameOnChange extends EditRecipeEvent {

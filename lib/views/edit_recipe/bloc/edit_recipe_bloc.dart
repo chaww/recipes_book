@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:recipes_api/recipes_api.dart';
 import 'package:recipes_repository/recipes_repository.dart';
 
 part 'edit_recipe_event.dart';
@@ -11,25 +8,41 @@ part 'edit_recipe_state.dart';
 class EditRecipeBloc extends Bloc<EditRecipeEvent, EditRecipeState> {
   EditRecipeBloc({
     required RecipesRepository recipesRepository,
+    required Recipe? recipe,
   })  : _recipesRepository = recipesRepository,
+        _recipe = recipe,
         super(const EditRecipeState()) {
-    on<OptionSelectOnChanged>(_onOptionSelectOnChanged);
+    on<InitialState>(_onInitialState);
     on<OptionNameOnChange>(_onOptionNameOnChange);
     on<IngredientAdd>(_onIngredientAdd);
     on<IngredientEdit>(_onIngredientEdit);
     on<IngredientDelete>(_onIngredientDelete);
     on<ShowDisplayPickImageDialog>(_onShowDisplayPickImageDialog);
     on<ImageDelete>(_onImageDelete);
+    on<EditRecipeSubmitted>(_onEditRecipeSubmitted);
   }
 
   final RecipesRepository _recipesRepository;
+  final Recipe? _recipe;
 
-  void _onOptionSelectOnChanged(
-    OptionSelectOnChanged event,
+  void _onInitialState(
+    InitialState event,
     Emitter<EditRecipeState> emit,
   ) {
-    emit(state.copyWith(optionValue: () => event.optionValue));
+    if (_recipe != null) {
+      emit(
+        state.copyWith(
+          optionName: () => _recipe!.name,
+          // ...
+        ),
+      );
+    }
   }
+
+  void _onEditRecipeSubmitted(
+    EditRecipeSubmitted event,
+    Emitter<EditRecipeState> emit,
+  ) {}
 
   void _onOptionNameOnChange(
     OptionNameOnChange event,

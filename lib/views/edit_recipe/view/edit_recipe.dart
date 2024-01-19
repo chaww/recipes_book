@@ -7,12 +7,25 @@ import 'package:recipes_repository/recipes_repository.dart';
 class EditRecipePage extends StatelessWidget {
   const EditRecipePage({super.key});
 
+  static Route<void> route({Recipe? recipe}) {
+    return MaterialPageRoute(
+      builder: (context) => BlocProvider(
+        create: (context) => EditRecipeBloc(
+          recipesRepository: context.read<RecipesRepository>(),
+          recipe: recipe,
+        ),
+        child: const EditRecipePage(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => EditRecipeBloc(
-        recipesRepository: context.read<RecipesRepository>(),
-      ),
+    return BlocListener<EditRecipeBloc, EditRecipeState>(
+      listenWhen: (previous, current) =>
+          previous.status != current.status &&
+          current.status == EditRecipeStatus.success,
+      listener: (context, state) => Navigator.of(context).pop(),
       child: const EditRecipeView(),
     );
   }
@@ -26,19 +39,20 @@ class EditRecipeView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text('อเมริกาโน (เย็น)'),
+        title: const Text('เพิ่มสูตร'),
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.done_all),
+            onPressed: () {
+              context.read<EditRecipeBloc>().add(const EditRecipeSubmitted());
+            },
+            icon: const Icon(Icons.done_all),
           ),
         ],
       ),
       body: ListView(
-        // shrinkWrap: true,
+        shrinkWrap: true,
         children: const <Widget>[
           OptionSection(),
-          Divider(),
           ImageSection(),
           IngreditntsSection(),
         ],

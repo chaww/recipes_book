@@ -1,16 +1,24 @@
 part of 'edit_recipe_bloc.dart';
 
+enum EditRecipeStatus { initial, loading, success, failure }
+
+extension EditTodoStatusX on EditRecipeStatus {
+  bool get isLoadingOrSuccess => [
+        EditRecipeStatus.loading,
+        EditRecipeStatus.success,
+      ].contains(this);
+}
+
 class EditRecipeState extends Equatable {
   const EditRecipeState({
-    this.optionSelect = const ['* ไม่ระบุ', '* เพิ่มตัวเลือกใหม่'],
-    this.optionValue = '* ไม่ระบุ',
+    this.status = EditRecipeStatus.initial,
     this.optionName = '',
     this.imagePath = '',
     this.ingredientList = const [],
   });
 
-  final List<String> optionSelect;
-  final String optionValue;
+  final EditRecipeStatus status;
+
   final String optionName;
 
   final String imagePath;
@@ -18,15 +26,11 @@ class EditRecipeState extends Equatable {
   final List<Ingredient> ingredientList;
 
   EditRecipeState copyWith({
-    List<String> Function()? optionSelect,
-    String Function()? optionValue,
     String Function()? optionName,
     String Function()? imagePath,
     List<Ingredient> Function()? ingredientList,
   }) {
     return EditRecipeState(
-      optionSelect: optionSelect != null ? optionSelect() : this.optionSelect,
-      optionValue: optionValue != null ? optionValue() : this.optionValue,
       optionName: optionName != null ? optionName() : this.optionName,
       imagePath: imagePath != null ? imagePath() : this.imagePath,
       ingredientList:
@@ -35,6 +39,5 @@ class EditRecipeState extends Equatable {
   }
 
   @override
-  List<Object> get props =>
-      [optionSelect, optionValue, optionName, imagePath, ingredientList];
+  List<Object> get props => [optionName, imagePath, ingredientList];
 }

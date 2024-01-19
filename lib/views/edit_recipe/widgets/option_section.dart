@@ -10,7 +10,6 @@ class OptionSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.watch<EditRecipeBloc>().state;
-    final showOptionName = state.optionValue != state.optionSelect.first;
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -19,53 +18,17 @@ class OptionSection extends StatelessWidget {
       ),
       child: Column(
         children: [
-          const DropdownOption(),
-          if (showOptionName)
-            const SizedBox(
-              height: 16,
+          TextFormField(
+            initialValue: state.optionName,
+            onChanged: (value) {
+              context.read<EditRecipeBloc>().add(OptionNameOnChange(value));
+            },
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'ชื่อตัวเลือก',
             ),
-          if (showOptionName)
-            TextFormField(
-              initialValue: state.optionName,
-              onChanged: (value) {
-                context.read<EditRecipeBloc>().add(OptionNameOnChange(value));
-              },
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'ชื่อตัวเลือก',
-              ),
-            ),
+          ),
         ],
-      ),
-    );
-  }
-}
-
-class DropdownOption extends StatelessWidget {
-  const DropdownOption({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final optionSelect = context.read<EditRecipeBloc>().state.optionSelect;
-
-    return LayoutBuilder(
-      builder: (context, constraints) => DropdownMenu(
-        width: constraints.maxWidth,
-        initialSelection: optionSelect.first,
-        label: const Text('ตัวเลือก'),
-        // inputDecorationTheme: InputDecorationTheme(
-        //   filled: true,
-        // ),
-        onSelected: (e) {
-          context.read<EditRecipeBloc>().add(
-                OptionSelectOnChanged(e ?? optionSelect.first),
-              );
-        },
-        dropdownMenuEntries: optionSelect
-            .map((e) => DropdownMenuEntry(value: e, label: e))
-            .toList(),
       ),
     );
   }
