@@ -1,1 +1,1 @@
-export 'edit_recipe.dart';
+export 'edit_recipe_view.dart';

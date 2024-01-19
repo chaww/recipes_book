@@ -42,7 +42,11 @@ class EditRecipeBloc extends Bloc<EditRecipeEvent, EditRecipeState> {
   void _onEditRecipeSubmitted(
     EditRecipeSubmitted event,
     Emitter<EditRecipeState> emit,
-  ) {}
+  ) {
+    if (state.ingredientList.length > 0) {
+      final recipe = Recipe(ingredients: state.ingredientList);
+    }
+  }
 
   void _onOptionNameOnChange(
     OptionNameOnChange event,
