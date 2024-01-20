@@ -21,7 +21,7 @@ void main() {
         recipeList: [
           Recipe(
             name: 'อเมริกาโน่',
-            coffeeType: 'กาแฟคั่วกลาง',
+            optionName: 'กาแฟคั่วกลาง',
             type: 'ร้อน',
             image: 'a001.png',
             ingredients: [
@@ -31,7 +31,7 @@ void main() {
           ),
           Recipe(
             name: 'อเมริกาโน่',
-            coffeeType: 'กาแฟคั่วกลาง',
+            optionName: 'กาแฟคั่วกลาง',
             type: 'เย็น',
             image: 'a002.png',
             ingredients: [
@@ -41,7 +41,7 @@ void main() {
           ),
           Recipe(
             name: 'อเมริกาโน่',
-            coffeeType: 'กาแฟคั่วอ่อน',
+            optionName: 'กาแฟคั่วอ่อน',
             type: 'ร้อน',
             image: 'a003.png',
             ingredients: [
@@ -51,7 +51,7 @@ void main() {
           ),
           Recipe(
             name: 'อเมริกาโน่',
-            coffeeType: 'กาแฟคั่วอ่อน',
+            optionName: 'กาแฟคั่วอ่อน',
             type: 'เย็น',
             image: 'a004.png',
             ingredients: [

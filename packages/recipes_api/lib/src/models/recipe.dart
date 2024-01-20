@@ -9,14 +9,14 @@ class Recipe extends Equatable {
   final String name;
   final String image;
   final String type;
-  final String coffeeType;
+  final String optionName;
   final List<Ingredient> ingredients;
 
   Recipe({
     this.name = '',
     this.image = '',
     this.type = '',
-    this.coffeeType = '',
+    this.optionName = '',
     required this.ingredients,
   });
 
@@ -24,14 +24,14 @@ class Recipe extends Equatable {
     String? name,
     String? image,
     String? type,
-    String? coffeeType,
+    String? optionName,
     List<Ingredient>? ingredients,
   }) {
     return Recipe(
       name: name ?? this.name,
       image: image ?? this.image,
       type: type ?? this.type,
-      coffeeType: coffeeType ?? this.coffeeType,
+      optionName: optionName ?? this.optionName,
       ingredients: ingredients ?? this.ingredients,
     );
   }
@@ -41,5 +41,5 @@ class Recipe extends Equatable {
   JsonMap toJson() => _$RecipeToJson(this);
 
   @override
-  List<Object> get props => [name, image, type, coffeeType, ingredients];
+  List<Object> get props => [name, image, type, optionName, ingredients];
 }
