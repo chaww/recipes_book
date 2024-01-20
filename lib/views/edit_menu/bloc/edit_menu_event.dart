@@ -6,3 +6,12 @@ sealed class EditMenuEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class AddRecipe extends EditMenuEvent {
+  const AddRecipe(this.recipe);
+
+  final Recipe recipe;
+
+  @override
+  List<Object> get props => [recipe];
+}

@@ -6,15 +6,19 @@ class MenuSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
+    return Padding(
       padding: EdgeInsets.all(16),
       child: Column(
         children: [
           ImageSection(),
-          TextField(
-            decoration: InputDecoration(
-              // border: OutlineInputBorder(),
+          SizedBox(height: 32),
+          TextFormField(
+            initialValue: '',
+            onChanged: (value) {},
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
               labelText: 'ชื่อเมนู',
+              floatingLabelStyle: TextStyle(fontSize: 22),
             ),
           ),
         ],

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class ImageSection extends StatelessWidget {
@@ -5,16 +7,59 @@ class ImageSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const imageSize = 200;
+    // final imagePath = context.watch<EditRecipeBloc>().state.imagePath;
+    final imagePath = '';
     return Column(
       children: [
         Card(
+          clipBehavior: Clip.antiAlias,
+          elevation: 5,
           child: SizedBox(
-            height: 200 * 4 / 3,
-            width: 200 * 3 / 4,
-            child: Center(
-              child: IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.add_photo_alternate),
+            height: imageSize * 1.2,
+            width: imageSize * 1,
+            child: Container(
+              decoration: imagePath != ''
+                  ? BoxDecoration(
+                      image: DecorationImage(
+                        image: FileImage(File(imagePath)),
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                  : null,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // if (path != '')
+                  //   FilledButton.tonalIcon(
+                  //     onPressed: () async {
+                  //       // await displayPickImageDialog();
+                  //     },
+                  //     icon: Icon(Icons.remove_red_eye_outlined),
+                  //     label: Text('ดูรูปภาพ'),
+                  //   ),
+                  FilledButton.tonalIcon(
+                    onPressed: () async {
+                      // context
+                      //     .read<EditRecipeBloc>()
+                      //     .add(const ShowDisplayPickImageDialog());
+                    },
+                    icon: Icon(imagePath == ''
+                        ? Icons.add_photo_alternate
+                        : Icons.photo),
+                    label:
+                        Text(imagePath == '' ? 'เพิ่มรูปภาพ' : 'เปลี่ยนรูปภาพ'),
+                  ),
+                  if (imagePath != '')
+                    FilledButton.tonalIcon(
+                      onPressed: () {
+                        // context.read<EditRecipeBloc>().add(const ImageDelete());
+                      },
+                      icon: Icon(Icons.delete_forever),
+                      label: Text('ลบรูปภาพ'),
+                    ),
+                ],
               ),
             ),
           ),

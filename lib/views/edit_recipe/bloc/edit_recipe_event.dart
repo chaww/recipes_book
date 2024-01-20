@@ -12,7 +12,9 @@ class InitialState extends EditRecipeEvent {
 }
 
 class EditRecipeSubmitted extends EditRecipeEvent {
-  const EditRecipeSubmitted();
+  const EditRecipeSubmitted(this.callback);
+
+  final void Function() callback;
 }
 
 class OptionNameOnChange extends EditRecipeEvent {

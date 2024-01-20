@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:recipes_repository/recipes_repository.dart';
@@ -8,9 +10,7 @@ part 'edit_recipe_state.dart';
 class EditRecipeBloc extends Bloc<EditRecipeEvent, EditRecipeState> {
   EditRecipeBloc({
     required RecipesRepository recipesRepository,
-    required Recipe? recipe,
   })  : _recipesRepository = recipesRepository,
-        _recipe = recipe,
         super(const EditRecipeState()) {
     on<InitialState>(_onInitialState);
     on<OptionNameOnChange>(_onOptionNameOnChange);
@@ -23,20 +23,12 @@ class EditRecipeBloc extends Bloc<EditRecipeEvent, EditRecipeState> {
   }
 
   final RecipesRepository _recipesRepository;
-  final Recipe? _recipe;
 
   void _onInitialState(
     InitialState event,
     Emitter<EditRecipeState> emit,
   ) {
-    if (_recipe != null) {
-      emit(
-        state.copyWith(
-          optionName: () => _recipe!.name,
-          // ...
-        ),
-      );
-    }
+    log('_onInitialState');
   }
 
   void _onEditRecipeSubmitted(
@@ -46,6 +38,12 @@ class EditRecipeBloc extends Bloc<EditRecipeEvent, EditRecipeState> {
     if (state.ingredientList.length > 0) {
       final recipe = Recipe(ingredients: state.ingredientList);
     }
+    emit(
+      state.copyWith(
+        status: () => EditRecipeStatus.success,
+      ),
+    );
+    // event.callback();
   }
 
   void _onOptionNameOnChange(

@@ -2,13 +2,6 @@ part of 'edit_recipe_bloc.dart';
 
 enum EditRecipeStatus { initial, loading, success, failure }
 
-extension EditTodoStatusX on EditRecipeStatus {
-  bool get isLoadingOrSuccess => [
-        EditRecipeStatus.loading,
-        EditRecipeStatus.success,
-      ].contains(this);
-}
-
 class EditRecipeState extends Equatable {
   const EditRecipeState({
     this.status = EditRecipeStatus.initial,
@@ -26,11 +19,13 @@ class EditRecipeState extends Equatable {
   final List<Ingredient> ingredientList;
 
   EditRecipeState copyWith({
+    EditRecipeStatus Function()? status,
     String Function()? optionName,
     String Function()? imagePath,
     List<Ingredient> Function()? ingredientList,
   }) {
     return EditRecipeState(
+      status: status != null ? status() : this.status,
       optionName: optionName != null ? optionName() : this.optionName,
       imagePath: imagePath != null ? imagePath() : this.imagePath,
       ingredientList:
@@ -39,5 +34,5 @@ class EditRecipeState extends Equatable {
   }
 
   @override
-  List<Object> get props => [optionName, imagePath, ingredientList];
+  List<Object> get props => [status, optionName, imagePath, ingredientList];
 }
