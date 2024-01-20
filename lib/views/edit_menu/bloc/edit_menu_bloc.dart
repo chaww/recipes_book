@@ -8,9 +8,10 @@ part 'edit_menu_event.dart';
 part 'edit_menu_state.dart';
 
 class EditMenuBloc extends Bloc<EditMenuEvent, EditMenuState> {
-  EditMenuBloc() : super(EditMenuInitial()) {
+  EditMenuBloc() : super(const EditMenuState()) {
     on<AddRecipe>((event, emit) {
-      log('AddRecipe');
+      log('AddRecipe Event');
+      log(event.recipe.toString());
     });
   }
 }

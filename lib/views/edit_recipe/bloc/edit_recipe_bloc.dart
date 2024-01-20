@@ -32,7 +32,11 @@ class EditRecipeBloc extends Bloc<EditRecipeEvent, EditRecipeState> {
     InitialState event,
     Emitter<EditRecipeState> emit,
   ) {
-    log('_onInitialState');
+    if (event.recipe != null) {
+      log('_onInitialState is Edit');
+    } else {
+      log('_onInitialState is Add');
+    }
   }
 
   void _onEditRecipeSubmitted(
@@ -41,14 +45,13 @@ class EditRecipeBloc extends Bloc<EditRecipeEvent, EditRecipeState> {
   ) {
     if (state.ingredientList.length > 0) {
       final recipe = Recipe(ingredients: state.ingredientList);
+      _editMenuBloc.add(AddRecipe(recipe));
+      emit(
+        state.copyWith(
+          status: () => EditRecipeStatus.success,
+        ),
+      );
     }
-    emit(
-      state.copyWith(
-        status: () => EditRecipeStatus.success,
-      ),
-    );
-    _editMenuBloc.add(AddRecipe());
-    event.callback();
   }
 
   void _onOptionNameOnChange(

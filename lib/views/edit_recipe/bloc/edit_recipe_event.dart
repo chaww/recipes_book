@@ -8,13 +8,13 @@ sealed class EditRecipeEvent extends Equatable {
 }
 
 class InitialState extends EditRecipeEvent {
-  const InitialState();
+  const InitialState(this.recipe);
+
+  final Recipe? recipe;
 }
 
 class EditRecipeSubmitted extends EditRecipeEvent {
-  const EditRecipeSubmitted(this.callback);
-
-  final void Function() callback;
+  const EditRecipeSubmitted();
 }
 
 class OptionNameOnChange extends EditRecipeEvent {

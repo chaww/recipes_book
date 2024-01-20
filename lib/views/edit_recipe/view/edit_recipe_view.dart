@@ -11,7 +11,6 @@ class EditRecipePage extends StatelessWidget {
   const EditRecipePage({super.key});
 
   static Route<void> route({
-    Recipe? recipe,
     required EditMenuBloc editMenuBloc,
   }) {
     return MaterialPageRoute(
@@ -27,24 +26,14 @@ class EditRecipePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return BlocProvider(
-    //   create: (_) => EditRecipeBloc(
-    //     recipesRepository: context.read<RecipesRepository>(),
-    //     editMenuBloc: context.read<EditMenuBloc>(),
-    //   ),
-    //   child: BlocListener<EditRecipeBloc, EditRecipeState>(
-    //     listener: (context, state) {
-    //       log(state.status.toString());
-    //       if (state.status == EditRecipeStatus.success) {
-    //         final recipe = Recipe(ingredients: state.ingredientList);
-    //         BlocProvider.of<EditMenuBloc>(context).add(AddRecipe(recipe));
-    //       }
-    //     },
-    //     child: const EditRecipeView(),
-    //   ),
-    // );
-
-    return const EditRecipeView();
+    return BlocListener<EditRecipeBloc, EditRecipeState>(
+      listener: (context, state) {
+        if (state.status == EditRecipeStatus.success) {
+          Navigator.pop(context);
+        }
+      },
+      child: const EditRecipeView(),
+    );
   }
 }
 
@@ -60,12 +49,7 @@ class EditRecipeView extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              context.read<EditRecipeBloc>().add(
-                EditRecipeSubmitted(() {
-                  // Navigator.pop(context);
-                  // context.read<EditMenuBloc>().add(const AddRecipe());
-                }),
-              );
+              context.read<EditRecipeBloc>().add(const EditRecipeSubmitted());
             },
             icon: const Icon(Icons.done_all),
           ),

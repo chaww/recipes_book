@@ -33,28 +33,8 @@ class EditMenuPage extends StatelessWidget {
           ),
         ),
       ],
-      child: BlocListener<EditRecipeBloc, EditRecipeState>(
-        listener: (context, state) {
-          log(state.status.toString());
-          // if (state.status == EditRecipeStatus.success) {
-          //   final recipe = Recipe(ingredients: state.ingredientList);
-          //   BlocProvider.of<EditMenuBloc>(context).add(AddRecipe());
-          // }
-        },
-        child: const EditMenuView(),
-      ),
+      child: const EditMenuView(),
     );
-
-    // return BlocProvider(
-    //   create: (context) => EditMenuBloc(),
-    //   child: BlocListener<EditMenuBloc, EditMenuState>(
-    //     listenWhen: (previous, current) =>
-    //         previous.status != current.status &&
-    //         current.status == EditMenuStatus.success,
-    //     listener: (context, state) => Navigator.pop(context),
-    //     child: const EditMenuView(),
-    //   ),
-    // );
   }
 }
 

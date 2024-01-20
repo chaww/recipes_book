@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipes_book/views/edit_menu/bloc/edit_menu_bloc.dart';
+import 'package:recipes_book/views/edit_recipe/bloc/edit_recipe_bloc.dart';
 import 'package:recipes_book/views/edit_recipe/view/edit_recipe_view.dart';
 
 class OptionsSection extends StatelessWidget {
@@ -28,18 +29,18 @@ class OptionsSection extends StatelessWidget {
               ListTile(
                 leading: Icon(Icons.coffee),
                 title: Text('ปกติ'),
-                onTap: () {
-                  Navigator.of(context).push(EditRecipePage.route(
-                      editMenuBloc: context.read<EditMenuBloc>()));
-                },
+                onTap: () {},
                 trailing: Icon(Icons.navigate_next),
               ),
               FilledButton.tonalIcon(
-                onPressed: () => showDialog<String>(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (_) => Text('data'),
-                ),
+                onPressed: () {
+                  context.read<EditRecipeBloc>().add(const InitialState(null));
+                  Navigator.of(context).push(
+                    EditRecipePage.route(
+                      editMenuBloc: context.read<EditMenuBloc>(),
+                    ),
+                  );
+                },
                 icon: const Icon(Icons.add),
                 label: Text('เพิ่มสูตรประเภทร้อน'),
               ),
