@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:recipes_book/views/edit_menu/bloc/edit_menu_bloc.dart';
 import 'package:recipes_repository/recipes_repository.dart';
 
 part 'edit_recipe_event.dart';
@@ -10,7 +11,9 @@ part 'edit_recipe_state.dart';
 class EditRecipeBloc extends Bloc<EditRecipeEvent, EditRecipeState> {
   EditRecipeBloc({
     required RecipesRepository recipesRepository,
+    required EditMenuBloc editMenuBloc,
   })  : _recipesRepository = recipesRepository,
+        _editMenuBloc = editMenuBloc,
         super(const EditRecipeState()) {
     on<InitialState>(_onInitialState);
     on<OptionNameOnChange>(_onOptionNameOnChange);
@@ -23,6 +26,7 @@ class EditRecipeBloc extends Bloc<EditRecipeEvent, EditRecipeState> {
   }
 
   final RecipesRepository _recipesRepository;
+  final EditMenuBloc _editMenuBloc;
 
   void _onInitialState(
     InitialState event,
@@ -43,7 +47,8 @@ class EditRecipeBloc extends Bloc<EditRecipeEvent, EditRecipeState> {
         status: () => EditRecipeStatus.success,
       ),
     );
-    // event.callback();
+    _editMenuBloc.add(AddRecipe());
+    event.callback();
   }
 
   void _onOptionNameOnChange(

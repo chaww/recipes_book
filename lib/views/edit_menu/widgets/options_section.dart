@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipes_book/views/edit_menu/bloc/edit_menu_bloc.dart';
 import 'package:recipes_book/views/edit_recipe/view/edit_recipe_view.dart';
 
 class OptionsSection extends StatelessWidget {
@@ -27,7 +29,8 @@ class OptionsSection extends StatelessWidget {
                 leading: Icon(Icons.coffee),
                 title: Text('ปกติ'),
                 onTap: () {
-                  Navigator.of(context).push(EditRecipePage.route());
+                  Navigator.of(context).push(EditRecipePage.route(
+                      editMenuBloc: context.read<EditMenuBloc>()));
                 },
                 trailing: Icon(Icons.navigate_next),
               ),
@@ -60,7 +63,7 @@ class OptionsSection extends StatelessWidget {
                 leading: Icon(Icons.ac_unit),
                 title: Text('ปกติ'),
                 onTap: () {
-                  Navigator.of(context).push(EditRecipePage.route());
+                  // Navigator.of(context).push(EditRecipePage.route());
                 },
                 trailing: Icon(Icons.navigate_next),
               ),
@@ -93,7 +96,7 @@ class OptionsSection extends StatelessWidget {
                 leading: Icon(Icons.cyclone),
                 title: Text('ปกติ'),
                 onTap: () {
-                  Navigator.of(context).push(EditRecipePage.route());
+                  // Navigator.of(context).push(EditRecipePage.route());
                 },
                 trailing: Icon(Icons.navigate_next),
               ),

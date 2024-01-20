@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipes_book/views/edit_menu/bloc/edit_menu_bloc.dart';
@@ -27,10 +29,20 @@ class EditMenuPage extends StatelessWidget {
         BlocProvider(
           create: (context) => EditRecipeBloc(
             recipesRepository: context.read<RecipesRepository>(),
+            editMenuBloc: context.read<EditMenuBloc>(),
           ),
         ),
       ],
-      child: const EditMenuView(),
+      child: BlocListener<EditRecipeBloc, EditRecipeState>(
+        listener: (context, state) {
+          log(state.status.toString());
+          // if (state.status == EditRecipeStatus.success) {
+          //   final recipe = Recipe(ingredients: state.ingredientList);
+          //   BlocProvider.of<EditMenuBloc>(context).add(AddRecipe());
+          // }
+        },
+        child: const EditMenuView(),
+      ),
     );
 
     // return BlocProvider(

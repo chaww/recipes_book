@@ -10,11 +10,15 @@ import 'package:recipes_repository/recipes_repository.dart';
 class EditRecipePage extends StatelessWidget {
   const EditRecipePage({super.key});
 
-  static Route<void> route({Recipe? recipe}) {
+  static Route<void> route({
+    Recipe? recipe,
+    required EditMenuBloc editMenuBloc,
+  }) {
     return MaterialPageRoute(
       builder: (context) => BlocProvider(
-        create: (_) => EditRecipeBloc(
+        create: (context) => EditRecipeBloc(
           recipesRepository: context.read<RecipesRepository>(),
+          editMenuBloc: editMenuBloc,
         ),
         child: const EditRecipePage(),
       ),
@@ -40,16 +44,7 @@ class EditRecipePage extends StatelessWidget {
     //   ),
     // );
 
-    return BlocListener<EditRecipeBloc, EditRecipeState>(
-      listener: (context, state) {
-        log(state.status.toString());
-        if (state.status == EditRecipeStatus.success) {
-          final recipe = Recipe(ingredients: state.ingredientList);
-          BlocProvider.of<EditMenuBloc>(context).add(AddRecipe(recipe));
-        }
-      },
-      child: const EditRecipeView(),
-    );
+    return const EditRecipeView();
   }
 }
 
@@ -67,7 +62,8 @@ class EditRecipeView extends StatelessWidget {
             onPressed: () {
               context.read<EditRecipeBloc>().add(
                 EditRecipeSubmitted(() {
-                  Navigator.pop(context);
+                  // Navigator.pop(context);
+                  // context.read<EditMenuBloc>().add(const AddRecipe());
                 }),
               );
             },
