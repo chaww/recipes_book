@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipes_book/views/edit_menu/bloc/edit_menu_bloc.dart';
 
 class ImageSection extends StatelessWidget {
   const ImageSection({super.key});
@@ -8,8 +10,8 @@ class ImageSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const imageSize = 200;
-    // final imagePath = context.watch<EditRecipeBloc>().state.imagePath;
-    final imagePath = '';
+    final imagePath = context.watch<EditMenuBloc>().state.imagePath;
+    // final imagePath = '';
     return Column(
       children: [
         Card(
@@ -31,7 +33,7 @@ class ImageSection extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // if (path != '')
+                  // if (imagePath != '')
                   //   FilledButton.tonalIcon(
                   //     onPressed: () async {
                   //       // await displayPickImageDialog();
@@ -41,9 +43,9 @@ class ImageSection extends StatelessWidget {
                   //   ),
                   FilledButton.tonalIcon(
                     onPressed: () async {
-                      // context
-                      //     .read<EditRecipeBloc>()
-                      //     .add(const ShowDisplayPickImageDialog());
+                      context
+                          .read<EditMenuBloc>()
+                          .add(const ShowDisplayPickImageDialog());
                     },
                     icon: Icon(imagePath == ''
                         ? Icons.add_photo_alternate
@@ -54,7 +56,7 @@ class ImageSection extends StatelessWidget {
                   if (imagePath != '')
                     FilledButton.tonalIcon(
                       onPressed: () {
-                        // context.read<EditRecipeBloc>().add(const ImageDelete());
+                        context.read<EditMenuBloc>().add(const ImageDelete());
                       },
                       icon: Icon(Icons.delete_forever),
                       label: Text('ลบรูปภาพ'),

@@ -24,7 +24,9 @@ class EditMenuPage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => EditMenuBloc(),
+          create: (context) => EditMenuBloc(
+            recipesRepository: context.read<RecipesRepository>(),
+          ),
         ),
         BlocProvider(
           create: (context) => EditRecipeBloc(

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipes_book/views/edit_menu/bloc/edit_menu_bloc.dart';
@@ -9,32 +11,34 @@ class OptionsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final state = context.watch<EditMenuBloc>().state;
     return Padding(
       padding: EdgeInsets.all(8),
       child: Column(
         children: [
           Column(
-            children: [
+            children: <Widget>[
               Container(
                 // decoration: BoxDecoration(color: Colors.amber),
                 width: double.infinity,
                 child: const Padding(
                   padding: EdgeInsets.all(18),
                   child: Text(
-                    'ประเภทร้อน',
+                    'สูตรประเภทร้อน',
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
               ),
-              ListTile(
-                leading: Icon(Icons.coffee),
-                title: Text('ปกติ'),
-                onTap: () {},
-                trailing: Icon(Icons.navigate_next),
+              ...state.recipeHot.map(
+                (recipe) => ListTile(
+                  leading: Icon(Icons.coffee),
+                  title: Text(recipe.optionName),
+                  trailing: Icon(Icons.navigate_next),
+                  onTap: () {},
+                ),
               ),
               FilledButton.tonalIcon(
                 onPressed: () {
-                  context.read<EditRecipeBloc>().add(const InitialState(null));
                   Navigator.of(context).push(
                     EditRecipePage.route(
                       editMenuBloc: context.read<EditMenuBloc>(),
@@ -55,25 +59,27 @@ class OptionsSection extends StatelessWidget {
                 child: const Padding(
                   padding: EdgeInsets.all(18),
                   child: Text(
-                    'ประเภทเย็น',
+                    'สูตรประเภทเย็น',
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
               ),
-              ListTile(
-                leading: Icon(Icons.ac_unit),
-                title: Text('ปกติ'),
-                onTap: () {
-                  // Navigator.of(context).push(EditRecipePage.route());
-                },
-                trailing: Icon(Icons.navigate_next),
+              ...state.recipeIce.map(
+                (recipe) => ListTile(
+                  leading: Icon(Icons.ac_unit),
+                  title: Text(recipe.optionName),
+                  trailing: Icon(Icons.navigate_next),
+                  onTap: () {},
+                ),
               ),
               FilledButton.tonalIcon(
-                onPressed: () => showDialog<String>(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (_) => Text('data'),
-                ),
+                onPressed: () {
+                  Navigator.of(context).push(
+                    EditRecipePage.route(
+                      editMenuBloc: context.read<EditMenuBloc>(),
+                    ),
+                  );
+                },
                 icon: const Icon(Icons.add),
                 label: Text('เพิ่มสูตรประเภทเย็น'),
               ),
@@ -88,25 +94,27 @@ class OptionsSection extends StatelessWidget {
                 child: const Padding(
                   padding: EdgeInsets.all(18),
                   child: Text(
-                    'ประเภทปั่น',
+                    'สูตรประเภทปั่น',
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
               ),
-              ListTile(
-                leading: Icon(Icons.cyclone),
-                title: Text('ปกติ'),
-                onTap: () {
-                  // Navigator.of(context).push(EditRecipePage.route());
-                },
-                trailing: Icon(Icons.navigate_next),
+              ...state.recipeFrappe.map(
+                (recipe) => ListTile(
+                  leading: Icon(Icons.cyclone),
+                  title: Text(recipe.optionName),
+                  trailing: Icon(Icons.navigate_next),
+                  onTap: () {},
+                ),
               ),
               FilledButton.tonalIcon(
-                onPressed: () => showDialog<String>(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (_) => Text('data'),
-                ),
+                onPressed: () {
+                  Navigator.of(context).push(
+                    EditRecipePage.route(
+                      editMenuBloc: context.read<EditMenuBloc>(),
+                    ),
+                  );
+                },
                 icon: const Icon(Icons.add),
                 label: Text('เพิ่มสูตรประเภทปั่น'),
               ),
