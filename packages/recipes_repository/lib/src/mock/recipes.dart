@@ -10,7 +10,6 @@ Future<void> mock_recipes({required RecipesApi recipesApi}) async {
       name: 'อเมริกาโน่',
       recipeList: [
         Recipe(
-          name: 'อเมริกาโน่',
           optionName: 'กาแฟคั่วกลาง',
           type: 'ร้อน',
           image: 'a001.png',
@@ -20,7 +19,6 @@ Future<void> mock_recipes({required RecipesApi recipesApi}) async {
           ],
         ),
         Recipe(
-          name: 'อเมริกาโน่',
           optionName: 'กาแฟคั่วกลาง',
           type: 'เย็น',
           image: 'a002.png',
@@ -30,7 +28,6 @@ Future<void> mock_recipes({required RecipesApi recipesApi}) async {
           ],
         ),
         Recipe(
-          name: 'อเมริกาโน่',
           optionName: 'กาแฟคั่วอ่อน',
           type: 'ร้อน',
           image: 'a003.png',
@@ -40,7 +37,6 @@ Future<void> mock_recipes({required RecipesApi recipesApi}) async {
           ],
         ),
         Recipe(
-          name: 'อเมริกาโน่',
           optionName: 'กาแฟคั่วอ่อน',
           type: 'เย็น',
           image: 'a004.png',
@@ -58,7 +54,6 @@ Future<void> mock_recipes({required RecipesApi recipesApi}) async {
       name: 'คาปูชิโน่',
       recipeList: [
         Recipe(
-          name: 'คาปูชิโน่',
           type: 'ร้อน',
           image: 'b002.jpg',
           ingredients: [
@@ -75,7 +70,6 @@ Future<void> mock_recipes({required RecipesApi recipesApi}) async {
       name: 'ชาพีช',
       recipeList: [
         Recipe(
-          name: 'ชาพีช',
           type: 'เย็น',
           image: 'b003.jpg',
           ingredients: [

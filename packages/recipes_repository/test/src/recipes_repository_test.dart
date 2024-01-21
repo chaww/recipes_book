@@ -20,7 +20,6 @@ void main() {
         name: 'อเมริกาโน่',
         recipeList: [
           Recipe(
-            name: 'อเมริกาโน่',
             optionName: 'กาแฟคั่วกลาง',
             type: 'ร้อน',
             image: 'a001.png',
@@ -30,7 +29,6 @@ void main() {
             ],
           ),
           Recipe(
-            name: 'อเมริกาโน่',
             optionName: 'กาแฟคั่วกลาง',
             type: 'เย็น',
             image: 'a002.png',
@@ -40,7 +38,6 @@ void main() {
             ],
           ),
           Recipe(
-            name: 'อเมริกาโน่',
             optionName: 'กาแฟคั่วอ่อน',
             type: 'ร้อน',
             image: 'a003.png',
@@ -50,7 +47,6 @@ void main() {
             ],
           ),
           Recipe(
-            name: 'อเมริกาโน่',
             optionName: 'กาแฟคั่วอ่อน',
             type: 'เย็น',
             image: 'a004.png',
@@ -68,7 +64,6 @@ void main() {
         name: 'คาปูชิโน่',
         recipeList: [
           Recipe(
-            name: 'คาปูชิโน่',
             type: 'ร้อน',
             image: 'b002.jpg',
             ingredients: [
@@ -128,7 +123,6 @@ void main() {
           name: 'คอฟฟี่ลาเต้',
           recipeList: [
             Recipe(
-              name: 'คอฟฟี่ลาเต้',
               type: 'ร้อน',
               image: 'b003.jpg',
               ingredients: [
