@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipes_book/views/edit_recipe/bloc/edit_recipe_bloc.dart';
@@ -9,7 +11,16 @@ class OptionSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<EditRecipeBloc>().state;
+    // final state = context.watch<EditRecipeBloc>().state;
+
+    var optionNameValue = '';
+    final optionNameController = TextEditingController(text: optionNameValue);
+    context.select((EditRecipeBloc bloc) {
+      log('[$optionNameValue] [${bloc.state.optionName}]');
+      if (optionNameValue != bloc.state.optionName) {
+        optionNameController.text = bloc.state.optionName;
+      }
+    });
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -19,8 +30,10 @@ class OptionSection extends StatelessWidget {
       child: Column(
         children: [
           TextFormField(
-            initialValue: state.optionName,
+            // initialValue: state.optionName,
+            controller: optionNameController,
             onChanged: (value) {
+              optionNameValue = value;
               context.read<EditRecipeBloc>().add(OptionNameOnChange(value));
             },
             decoration: const InputDecoration(
