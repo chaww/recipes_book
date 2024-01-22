@@ -15,7 +15,7 @@ class Recipe extends Equatable {
     this.image = '',
     this.type = '',
     this.optionName = '',
-    required this.ingredients,
+    this.ingredients = const [],
   });
 
   Recipe copyWith({
