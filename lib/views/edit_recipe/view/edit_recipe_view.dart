@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipes_book/views/edit_menu/bloc/edit_menu_bloc.dart';
@@ -12,12 +10,16 @@ class EditRecipePage extends StatelessWidget {
 
   static Route<void> route({
     required EditMenuBloc editMenuBloc,
+    required Recipe recipe,
+    required int index,
   }) {
     return MaterialPageRoute(
       builder: (context) => BlocProvider(
         create: (context) => EditRecipeBloc(
           recipesRepository: context.read<RecipesRepository>(),
           editMenuBloc: editMenuBloc,
+          recipe: recipe,
+          index: index,
         ),
         child: const EditRecipePage(),
       ),
@@ -42,10 +44,16 @@ class EditRecipeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final state = context.read<EditRecipeBloc>().state;
+    var title = 'เพิ่มสูตร (${state.type})';
+    if (state.ingredientList.isNotEmpty) {
+      title = 'แก้ไขสูตร (${state.type})';
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('เพิ่มสูตร'),
+        title: Text(title),
         actions: [
           IconButton(
             onPressed: () {

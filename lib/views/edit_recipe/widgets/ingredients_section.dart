@@ -160,6 +160,7 @@ class IngredientDialog extends StatelessWidget {
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 label: Text('ชื่อวัตถุดิบ'),
+                floatingLabelStyle: TextStyle(fontSize: 22),
               ),
             ),
             const SizedBox(height: 8),
@@ -174,6 +175,7 @@ class IngredientDialog extends StatelessWidget {
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       label: Text('ปริมาณ'),
+                      floatingLabelStyle: TextStyle(fontSize: 22),
                     ),
                   ),
                 ),
@@ -187,6 +189,7 @@ class IngredientDialog extends StatelessWidget {
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       label: Text('หน่วย'),
+                      floatingLabelStyle: TextStyle(fontSize: 22),
                     ),
                   ),
                 ),

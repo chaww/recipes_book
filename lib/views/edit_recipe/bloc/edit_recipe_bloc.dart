@@ -12,10 +12,20 @@ class EditRecipeBloc extends Bloc<EditRecipeEvent, EditRecipeState> {
   EditRecipeBloc({
     required RecipesRepository recipesRepository,
     required EditMenuBloc editMenuBloc,
+    required Recipe recipe,
+    required int index,
   })  : _recipesRepository = recipesRepository,
         _editMenuBloc = editMenuBloc,
-        super(const EditRecipeState()) {
-    on<InitialState>(_onInitialState);
+        super(
+          EditRecipeState(
+            status: EditRecipeStatus.initial,
+            index: index,
+            optionName: recipe.optionName == '' ? 'ปกติ' : recipe.optionName,
+            type: recipe.type,
+            imagePath: recipe.image,
+            ingredientList: recipe.ingredients,
+          ),
+        ) {
     on<OptionNameOnChange>(_onOptionNameOnChange);
     on<IngredientAdd>(_onIngredientAdd);
     on<IngredientEdit>(_onIngredientEdit);
@@ -28,24 +38,18 @@ class EditRecipeBloc extends Bloc<EditRecipeEvent, EditRecipeState> {
   final RecipesRepository _recipesRepository;
   final EditMenuBloc _editMenuBloc;
 
-  void _onInitialState(
-    InitialState event,
-    Emitter<EditRecipeState> emit,
-  ) {
-    if (event.recipe != null) {
-      log('_onInitialState is Edit');
-    } else {
-      log('_onInitialState is Add');
-    }
-  }
-
   void _onEditRecipeSubmitted(
     EditRecipeSubmitted event,
     Emitter<EditRecipeState> emit,
   ) {
-    if (state.ingredientList.length > 0) {
-      final recipe = Recipe(ingredients: state.ingredientList);
-      _editMenuBloc.add(AddRecipe(recipe));
+    if (state.ingredientList.isNotEmpty) {
+      final recipe = Recipe(
+        image: state.imagePath,
+        type: state.type,
+        optionName: state.optionName,
+        ingredients: state.ingredientList,
+      );
+      _editMenuBloc.add(UpdateRecipe(recipe: recipe, index: state.index));
       emit(
         state.copyWith(
           status: () => EditRecipeStatus.success,

@@ -7,12 +7,6 @@ sealed class EditRecipeEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class InitialState extends EditRecipeEvent {
-  const InitialState(this.recipe);
-
-  final Recipe? recipe;
-}
-
 class EditRecipeSubmitted extends EditRecipeEvent {
   const EditRecipeSubmitted();
 }
