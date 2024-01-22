@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:recipes_repository/recipes_repository.dart';
@@ -10,7 +12,7 @@ class EditMenuBloc extends Bloc<EditMenuEvent, EditMenuState> {
     required RecipesRepository recipesRepository,
   })  : _recipesRepository = recipesRepository,
         super(const EditMenuState()) {
-    on<AddRecipe>(_onAddRecipe);
+    on<UpdateRecipe>(_onUpdateRecipe);
     on<ShowDisplayPickImageDialog>(_onShowDisplayPickImageDialog);
     on<ImageDelete>(_onImageDelete);
     on<NameChange>(_onNameChange);
@@ -19,15 +21,60 @@ class EditMenuBloc extends Bloc<EditMenuEvent, EditMenuState> {
 
   final RecipesRepository _recipesRepository;
 
-  void _onAddRecipe(
-    AddRecipe event,
+  void _onUpdateRecipe(
+    UpdateRecipe event,
     Emitter<EditMenuState> emit,
   ) {
-    emit(
-      state.copyWith(
-        recipeHot: () => [...state.recipeHot, event.recipe],
-      ),
-    );
+    final type = event.recipe.type;
+    if (type == 'ร้อน') {
+      if (event.index == -1) {
+        emit(
+          state.copyWith(
+            recipeHot: () => [...state.recipeHot, event.recipe],
+          ),
+        );
+      } else {
+        final newList = [...state.recipeHot];
+        newList[event.index] = event.recipe;
+        emit(
+          state.copyWith(
+            recipeHot: () => newList,
+          ),
+        );
+      }
+    } else if (type == 'เย็น') {
+      if (event.index == -1) {
+        emit(
+          state.copyWith(
+            recipeIce: () => [...state.recipeIce, event.recipe],
+          ),
+        );
+      } else {
+        final newList = [...state.recipeIce];
+        newList[event.index] = event.recipe;
+        emit(
+          state.copyWith(
+            recipeIce: () => newList,
+          ),
+        );
+      }
+    } else if (type == 'ปั่น') {
+      if (event.index == -1) {
+        emit(
+          state.copyWith(
+            recipeFrappe: () => [...state.recipeFrappe, event.recipe],
+          ),
+        );
+      } else {
+        final newList = [...state.recipeFrappe];
+        newList[event.index] = event.recipe;
+        emit(
+          state.copyWith(
+            recipeFrappe: () => newList,
+          ),
+        );
+      }
+    }
   }
 
   Future<void> _onShowDisplayPickImageDialog(

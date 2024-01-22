@@ -1,10 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipes_book/views/edit_menu/bloc/edit_menu_bloc.dart';
 import 'package:recipes_book/views/edit_menu/widgets/widgets.dart';
-import 'package:recipes_book/views/edit_recipe/bloc/edit_recipe_bloc.dart';
 import 'package:recipes_repository/recipes_repository.dart';
 
 class EditMenuPage extends StatelessWidget {
@@ -21,20 +18,10 @@ class EditMenuPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => EditMenuBloc(
-            recipesRepository: context.read<RecipesRepository>(),
-          ),
-        ),
-        BlocProvider(
-          create: (context) => EditRecipeBloc(
-            recipesRepository: context.read<RecipesRepository>(),
-            editMenuBloc: context.read<EditMenuBloc>(),
-          ),
-        ),
-      ],
+    return BlocProvider(
+      create: (context) => EditMenuBloc(
+        recipesRepository: context.read<RecipesRepository>(),
+      ),
       child: const EditMenuView(),
     );
   }

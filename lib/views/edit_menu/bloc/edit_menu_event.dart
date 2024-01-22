@@ -7,10 +7,11 @@ sealed class EditMenuEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class AddRecipe extends EditMenuEvent {
-  const AddRecipe(this.recipe);
+class UpdateRecipe extends EditMenuEvent {
+  const UpdateRecipe({required this.recipe, this.index = -1});
 
   final Recipe recipe;
+  final int index;
 
   @override
   List<Object> get props => [recipe];
