@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs
+
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:recipes_api/recipes_api.dart';
@@ -7,7 +9,6 @@ part 'menu.g.dart';
 
 @JsonSerializable()
 class Menu extends Equatable {
-  // ignore: public_member_api_docs
   Menu({
     String? id,
     required this.name,
