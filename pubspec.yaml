@@ -24,7 +24,7 @@ dependencies:
     path: packages/recipes_repository
   # --
   video_player: ^2.8.2
-  mime: ^1.0.4
+  mime: ^1.0.5
   # --
 
 dev_dependencies:
