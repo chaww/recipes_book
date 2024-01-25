@@ -7,6 +7,14 @@ sealed class EditMenuEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class UpdateEditMenuStatus extends EditMenuEvent {
+  const UpdateEditMenuStatus(this.status);
+  final EditMenuStatus status;
+
+  @override
+  List<Object> get props => [status];
+}
+
 class UpdateRecipe extends EditMenuEvent {
   const UpdateRecipe({
     required this.recipe,

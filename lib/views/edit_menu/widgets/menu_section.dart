@@ -11,7 +11,7 @@ class MenuSection extends StatelessWidget {
     final state = context.watch<EditMenuBloc>().state;
 
     return Padding(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Column(
         children: [
           const ImageSection(),
@@ -21,10 +21,11 @@ class MenuSection extends StatelessWidget {
             onChanged: (value) {
               context.read<EditMenuBloc>().add(NameChange(value));
             },
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              floatingLabelStyle: const TextStyle(fontSize: 22),
               labelText: 'ชื่อเมนู *',
-              floatingLabelStyle: TextStyle(fontSize: 22),
+              errorText: state.validateName ? null : 'กรุณาตั้งชื่อเมนู',
             ),
           ),
           const SizedBox(height: 22),

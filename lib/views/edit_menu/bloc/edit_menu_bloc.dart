@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:recipes_repository/recipes_repository.dart';
@@ -19,6 +17,7 @@ class EditMenuBloc extends Bloc<EditMenuEvent, EditMenuState> {
     on<NameChange>(_onNameChange);
     on<CategoryChange>(_onCategoryChange);
     on<EditMenuSubmitted>(_onEditMenuSubmitted);
+    on<UpdateEditMenuStatus>(_onUpdateEditMenuStatus);
   }
 
   final RecipesRepository _recipesRepository;
@@ -27,14 +26,27 @@ class EditMenuBloc extends Bloc<EditMenuEvent, EditMenuState> {
     EditMenuSubmitted event,
     Emitter<EditMenuState> emit,
   ) async {
-    final checkName = state.name.isNotEmpty;
     final recipeList = [
       ...state.recipeHot,
       ...state.recipeIce,
       ...state.recipeFrappe,
     ];
-    final newRecipeList = <Recipe>[];
-    if (checkName && recipeList.isNotEmpty) {
+    if (state.name.isEmpty) {
+      emit(
+        state.copyWith(
+          validateName: () => false,
+        ),
+      );
+    }
+    if (recipeList.isEmpty) {
+      emit(
+        state.copyWith(
+          validateRecipeList: () => false,
+        ),
+      );
+    }
+    if (state.validateName && state.validateRecipeList) {
+      final newRecipeList = <Recipe>[];
       var menuImagePath = state.imagePath;
       if (state.imagePath.isNotEmpty) {
         menuImagePath = await _recipesRepository.handleImagePath(
@@ -63,7 +75,24 @@ class EditMenuBloc extends Bloc<EditMenuEvent, EditMenuState> {
         recipeList: newRecipeList,
       );
       await _recipesRepository.saveMenu(newMenu);
+    } else {
+      emit(
+        state.copyWith(
+          status: () => EditMenuStatus.failure,
+        ),
+      );
     }
+  }
+
+  void _onUpdateEditMenuStatus(
+    UpdateEditMenuStatus event,
+    Emitter<EditMenuState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        status: () => event.status,
+      ),
+    );
   }
 
   void _onDeleteRecipe(
@@ -188,6 +217,7 @@ class EditMenuBloc extends Bloc<EditMenuEvent, EditMenuState> {
     emit(
       state.copyWith(
         name: () => event.name,
+        validateName: () => event.name.isNotEmpty,
       ),
     );
   }

@@ -12,7 +12,9 @@ class EditMenuPage extends StatelessWidget {
   // static Route<void> route() {
   //   return MaterialPageRoute(
   //     builder: (context) => BlocProvider(
-  //       create: (context) => EditMenuBloc(),
+  //       create: (context) => EditMenuBloc(
+  //         recipesRepository: context.read<RecipesRepository>(),
+  //       ),
   //       child: const EditMenuPage(),
   //     ),
   //   );
@@ -24,7 +26,40 @@ class EditMenuPage extends StatelessWidget {
       create: (context) => EditMenuBloc(
         recipesRepository: context.read<RecipesRepository>(),
       ),
-      child: const EditMenuView(),
+      child: BlocListener<EditMenuBloc, EditMenuState>(
+        listenWhen: (previous, current) => previous.status != current.status,
+        listener: (context, state) async {
+          if (state.status == EditMenuStatus.failure) {
+            await showDialog(
+              context: context,
+              builder: (dialogContext) => AlertDialog(
+                title: const Text('บันทึกล้มเหลว'),
+                content: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (!state.validateName) Text('* กรุณาตั้งชื่อเมนู'),
+                    if (!state.validateRecipeList)
+                      Text('* ต้องเพิ่มสูตรอย่างน้อย 1 รายการ'),
+                  ],
+                ),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () {
+                      context
+                          .read<EditMenuBloc>()
+                          .add(UpdateEditMenuStatus(EditMenuStatus.initial));
+                      Navigator.pop(context, 'OK');
+                    },
+                    child: const Text('ตกลง'),
+                  ),
+                ],
+              ),
+            );
+          }
+        },
+        child: const EditMenuView(),
+      ),
     );
   }
 }
