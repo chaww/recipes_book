@@ -10,9 +10,10 @@ Recipe _$RecipeFromJson(Map<String, dynamic> json) => Recipe(
       image: json['image'] as String? ?? '',
       type: json['type'] as String? ?? '',
       optionName: json['optionName'] as String? ?? '',
-      ingredients: (json['ingredients'] as List<dynamic>)
-          .map((e) => Ingredient.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      ingredients: (json['ingredients'] as List<dynamic>?)
+              ?.map((e) => Ingredient.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$RecipeToJson(Recipe instance) => <String, dynamic>{

@@ -3,23 +3,18 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:recipes_api/recipes_api.dart';
-import 'package:uuid/uuid.dart';
 
 part 'menu.g.dart';
 
 @JsonSerializable()
 class Menu extends Equatable {
-  Menu({
-    String? id,
-    required this.name,
+  const Menu({
+    this.id = '',
+    this.name = '',
     this.image = '',
     this.category = '',
-    required this.recipeList,
-  })  : assert(
-          id == null || id.isNotEmpty,
-          'id must either be null or not empty',
-        ),
-        id = id ?? const Uuid().v4();
+    this.recipeList = const [],
+  });
 
   final String id;
   final String name;

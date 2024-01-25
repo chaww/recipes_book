@@ -8,17 +8,17 @@ part 'recipe.g.dart';
 
 @JsonSerializable()
 class Recipe extends Equatable {
-  final String image;
-  final String type;
-  final String optionName;
-  final List<Ingredient> ingredients;
-
-  Recipe({
+  const Recipe({
     this.image = '',
     this.type = '',
     this.optionName = '',
     this.ingredients = const [],
   });
+
+  final String image;
+  final String type;
+  final String optionName;
+  final List<Ingredient> ingredients;
 
   Recipe copyWith({
     String? image,

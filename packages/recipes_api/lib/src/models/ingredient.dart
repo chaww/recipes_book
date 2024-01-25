@@ -8,15 +8,15 @@ part 'ingredient.g.dart';
 
 @JsonSerializable()
 class Ingredient extends Equatable {
-  final String name;
-  final String value;
-  final String unit;
-
-  Ingredient({
-    required this.name,
+  const Ingredient({
+    this.name = '',
     this.value = '',
     this.unit = '',
   });
+
+  final String name;
+  final String value;
+  final String unit;
 
   Ingredient copyWith({
     String? name,
