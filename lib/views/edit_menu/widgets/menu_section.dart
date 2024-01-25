@@ -23,7 +23,7 @@ class MenuSection extends StatelessWidget {
             },
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
-              labelText: 'ชื่อเมนู',
+              labelText: 'ชื่อเมนู *',
               floatingLabelStyle: TextStyle(fontSize: 22),
             ),
           ),

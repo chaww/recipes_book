@@ -8,6 +8,7 @@ class EditMenuState extends Equatable {
     this.categoryList = const ['ไม่ระบุ', 'ชา', 'กาแฟ'],
     this.imagePath = '',
     this.name = '',
+    // this.nameValidate = false,
     this.category = '',
     this.recipeHot = const [],
     this.recipeIce = const [],
@@ -19,6 +20,7 @@ class EditMenuState extends Equatable {
 
   final String imagePath;
   final String name;
+  // final bool nameValidate;
   final String category;
   final List<Recipe> recipeHot;
   final List<Recipe> recipeIce;
@@ -29,6 +31,7 @@ class EditMenuState extends Equatable {
     List<String> Function()? categoryList,
     String Function()? imagePath,
     String Function()? name,
+    // bool Function()? nameValidate,
     String Function()? category,
     List<Recipe> Function()? recipeHot,
     List<Recipe> Function()? recipeIce,
@@ -39,6 +42,7 @@ class EditMenuState extends Equatable {
       categoryList: categoryList != null ? categoryList() : this.categoryList,
       imagePath: imagePath != null ? imagePath() : this.imagePath,
       name: name != null ? name() : this.name,
+      // nameValidate: nameValidate != null ? nameValidate() : this.nameValidate,
       category: category != null ? category() : this.category,
       recipeHot: recipeHot != null ? recipeHot() : this.recipeHot,
       recipeIce: recipeIce != null ? recipeIce() : this.recipeIce,
@@ -52,6 +56,7 @@ class EditMenuState extends Equatable {
         categoryList,
         imagePath,
         name,
+        // nameValidate,
         category,
         recipeHot,
         recipeIce,

@@ -8,13 +8,30 @@ sealed class EditMenuEvent extends Equatable {
 }
 
 class UpdateRecipe extends EditMenuEvent {
-  const UpdateRecipe({required this.recipe, this.index = -1});
+  const UpdateRecipe({
+    required this.recipe,
+    this.index = -1,
+  });
 
   final Recipe recipe;
   final int index;
 
   @override
   List<Object> get props => [recipe];
+}
+
+class DeleteRecipe extends EditMenuEvent {
+  const DeleteRecipe({
+    required this.index,
+    required this.type,
+  });
+
+  final int index;
+  final String type;
+}
+
+class EditMenuSubmitted extends EditMenuEvent {
+  const EditMenuSubmitted();
 }
 
 class ShowDisplayPickImageDialog extends EditMenuEvent {

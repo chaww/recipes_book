@@ -13,13 +13,93 @@ class EditMenuBloc extends Bloc<EditMenuEvent, EditMenuState> {
   })  : _recipesRepository = recipesRepository,
         super(const EditMenuState()) {
     on<UpdateRecipe>(_onUpdateRecipe);
+    on<DeleteRecipe>(_onDeleteRecipe);
     on<ShowDisplayPickImageDialog>(_onShowDisplayPickImageDialog);
     on<ImageDelete>(_onImageDelete);
     on<NameChange>(_onNameChange);
     on<CategoryChange>(_onCategoryChange);
+    on<EditMenuSubmitted>(_onEditMenuSubmitted);
   }
 
   final RecipesRepository _recipesRepository;
+
+  Future<void> _onEditMenuSubmitted(
+    EditMenuSubmitted event,
+    Emitter<EditMenuState> emit,
+  ) async {
+    final checkName = state.name.isNotEmpty;
+    final recipeList = [
+      ...state.recipeHot,
+      ...state.recipeIce,
+      ...state.recipeFrappe,
+    ];
+    final newRecipeList = <Recipe>[];
+    if (checkName && recipeList.isNotEmpty) {
+      var menuImagePath = state.imagePath;
+      if (state.imagePath.isNotEmpty) {
+        menuImagePath = await _recipesRepository.handleImagePath(
+          source: state.imagePath,
+        );
+      }
+      for (var index = 0; index < recipeList.length; index++) {
+        final recipe = recipeList[index];
+        final image = await _recipesRepository.handleImagePath(
+          source: recipe.image,
+        );
+        newRecipeList.add(
+          Recipe(
+            image: image,
+            type: recipe.type,
+            ingredients: recipe.ingredients,
+            optionName: recipe.optionName,
+          ),
+        );
+      }
+
+      final newMenu = Menu(
+        name: state.name,
+        image: menuImagePath,
+        category: state.category,
+        recipeList: newRecipeList,
+      );
+      await _recipesRepository.saveMenu(newMenu);
+    }
+  }
+
+  void _onDeleteRecipe(
+    DeleteRecipe event,
+    Emitter<EditMenuState> emit,
+  ) {
+    final type = event.type;
+    if (type == 'ร้อน') {
+      final newList = [...state.recipeHot];
+      // ignore: cascade_invocations
+      newList.removeAt(event.index);
+      emit(
+        state.copyWith(
+          recipeHot: () => newList,
+        ),
+      );
+    } else if (type == 'เย็น') {
+      final newList = [...state.recipeIce];
+      // ignore: cascade_invocations
+      newList.removeAt(event.index);
+      emit(
+        state.copyWith(
+          recipeIce: () => newList,
+        ),
+      );
+    } else if (type == 'ปั่น') {
+      final newList = [...state.recipeFrappe];
+      // ignore: cascade_invocations
+      newList.removeAt(event.index);
+      emit(
+        state.copyWith(
+          recipeFrappe: () => newList,
+        ),
+      );
+    }
+  }
 
   void _onUpdateRecipe(
     UpdateRecipe event,

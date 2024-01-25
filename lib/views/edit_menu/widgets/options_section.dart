@@ -41,7 +41,17 @@ class OptionsSection extends StatelessWidget {
                     (e) => ListTile(
                       leading: const Icon(Icons.coffee),
                       title: Text(e.value.optionName),
-                      trailing: const Icon(Icons.navigate_next),
+                      trailing: IconButton(
+                        onPressed: () {
+                          context.read<EditMenuBloc>().add(
+                                DeleteRecipe(
+                                  index: e.key,
+                                  type: e.value.type,
+                                ),
+                              );
+                        },
+                        icon: const Icon(Icons.delete_forever),
+                      ),
                       onTap: () {
                         navigatorPushEditRecipe(e.value, e.key);
                       },
@@ -73,7 +83,17 @@ class OptionsSection extends StatelessWidget {
                     (e) => ListTile(
                       leading: const Icon(Icons.ac_unit),
                       title: Text(e.value.optionName),
-                      trailing: const Icon(Icons.navigate_next),
+                      trailing: IconButton(
+                        onPressed: () {
+                          context.read<EditMenuBloc>().add(
+                                DeleteRecipe(
+                                  index: e.key,
+                                  type: e.value.type,
+                                ),
+                              );
+                        },
+                        icon: const Icon(Icons.delete_forever),
+                      ),
                       onTap: () {
                         navigatorPushEditRecipe(e.value, e.key);
                       },
@@ -105,7 +125,17 @@ class OptionsSection extends StatelessWidget {
                     (e) => ListTile(
                       leading: const Icon(Icons.cyclone),
                       title: Text(e.value.optionName),
-                      trailing: const Icon(Icons.navigate_next),
+                      trailing: IconButton(
+                        onPressed: () {
+                          context.read<EditMenuBloc>().add(
+                                DeleteRecipe(
+                                  index: e.key,
+                                  type: e.value.type,
+                                ),
+                              );
+                        },
+                        icon: const Icon(Icons.delete_forever),
+                      ),
                       onTap: () {
                         navigatorPushEditRecipe(e.value, e.key);
                       },
