@@ -9,8 +9,10 @@ environment:
 dependencies:
   image_picker: ^1.0.7
   mime: ^1.0.4
+  path_provider: ^2.1.2
   recipes_api:
     path: ../recipes_api
+  uuid: ^3.0.6
 
 dev_dependencies:
   mocktail: ^1.0.0

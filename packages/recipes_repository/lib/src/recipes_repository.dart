@@ -1,9 +1,10 @@
+// ignore_for_file: public_member_api_docs
+
 import 'package:recipes_api/recipes_api.dart';
 import 'package:recipes_repository/src/mock/mock.dart';
 import 'package:recipes_repository/src/recipes_images.dart';
 
 class RecipesRepository {
-  // ignore: public_member_api_docs
   const RecipesRepository({
     required RecipesApi recipesApi,
   }) : _recipesApi = recipesApi;
@@ -27,6 +28,11 @@ class RecipesRepository {
         maxWidth: maxWidth,
         maxHeight: maxHeight,
       );
+
+  Future<String> handleImagePath({
+    required String source,
+  }) =>
+      _recipesImages.handleImagePath(source: source);
 
   Future<void> mockData() => mock_data(recipesApi: _recipesApi);
 }
