@@ -48,11 +48,7 @@ class EditRecipeBloc extends Bloc<EditRecipeEvent, EditRecipeState> {
         ingredients: state.ingredientList,
       );
       _editMenuBloc.add(UpdateRecipe(recipe: recipe, index: state.index));
-      emit(
-        state.copyWith(
-          status: () => EditRecipeStatus.success,
-        ),
-      );
+      emit(state.copyWith(status: () => EditRecipeStatus.success));
     }
   }
 
@@ -100,11 +96,7 @@ class EditRecipeBloc extends Bloc<EditRecipeEvent, EditRecipeState> {
   ) {
     final list = [...state.ingredientList];
     list[event.index] = event.item;
-    emit(
-      state.copyWith(
-        ingredientList: () => list,
-      ),
-    );
+    emit(state.copyWith(ingredientList: () => list));
   }
 
   void _onIngredientDelete(
