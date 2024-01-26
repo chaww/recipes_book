@@ -16,6 +16,7 @@ class EditRecipeBloc extends Bloc<EditRecipeEvent, EditRecipeState> {
         _editMenuBloc = editMenuBloc,
         super(
           EditRecipeState(
+            recipe: recipe,
             status: EditRecipeStatus.initial,
             index: index,
             optionName: recipe.optionName == '' ? 'ปกติ' : recipe.optionName,

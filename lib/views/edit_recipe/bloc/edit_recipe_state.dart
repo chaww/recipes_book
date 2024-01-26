@@ -4,6 +4,7 @@ enum EditRecipeStatus { initial, loading, success, failure }
 
 class EditRecipeState extends Equatable {
   const EditRecipeState({
+    this.recipe = const Recipe(),
     this.status = EditRecipeStatus.initial,
     this.index = -1,
     this.type = '',
@@ -11,6 +12,7 @@ class EditRecipeState extends Equatable {
     this.imagePath = '',
     this.ingredientList = const [],
   });
+  final Recipe recipe;
 
   final EditRecipeStatus status;
   final int index;

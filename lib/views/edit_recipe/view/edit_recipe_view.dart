@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipes_book/views/edit_menu/bloc/edit_menu_bloc.dart';
@@ -92,13 +94,49 @@ class EditRecipeView extends StatelessWidget {
           ),
         ],
       ),
-      body: ListView(
-        shrinkWrap: true,
-        children: const <Widget>[
-          OptionSection(),
-          ImageSection(),
-          IngreditntsSection(),
-        ],
+      body: WillPopScope(
+        onWillPop: () async {
+          final state = context.read<EditRecipeBloc>().state;
+          final newRecipe = Recipe(
+            image: state.imagePath,
+            type: state.type,
+            optionName: state.optionName,
+            ingredients: state.ingredientList,
+          );
+          if (state.recipe == newRecipe) {
+            return true;
+          } else {
+            final confirm = await showDialog<bool>(
+              context: context,
+              builder: (dialogContext) => AlertDialog(
+                title: const Text('ละทิ้งการเปลี่ยนแปลง?'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(dialogContext, false);
+                    },
+                    child: const Text('ยกเลิก'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(dialogContext, true);
+                    },
+                    child: const Text('ตกลง'),
+                  ),
+                ],
+              ),
+            );
+            return confirm ?? false;
+          }
+        },
+        child: ListView(
+          shrinkWrap: true,
+          children: const <Widget>[
+            OptionSection(),
+            ImageSection(),
+            IngreditntsSection(),
+          ],
+        ),
       ),
     );
   }
