@@ -77,9 +77,28 @@ class IngredientItem extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () {
-                      context
-                          .read<EditRecipeBloc>()
-                          .add(IngredientDelete(index));
+                      showDialog<void>(
+                        context: context,
+                        builder: (_) => AlertDialog(
+                          title: const Text('ยืนยันการลบ'),
+                          // content: const Text('AlertDialog description'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: const Text('ยกเลิก'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                context
+                                    .read<EditRecipeBloc>()
+                                    .add(IngredientDelete(index));
+                                Navigator.pop(context);
+                              },
+                              child: const Text('ตกลง'),
+                            ),
+                          ],
+                        ),
+                      );
                     },
                     icon: const Icon(Icons.delete_forever),
                   ),
