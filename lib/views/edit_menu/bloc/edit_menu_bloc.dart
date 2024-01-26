@@ -26,6 +26,7 @@ class EditMenuBloc extends Bloc<EditMenuEvent, EditMenuState> {
     EditMenuSubmitted event,
     Emitter<EditMenuState> emit,
   ) async {
+    emit(state.copyWith(status: () => EditMenuStatus.loading));
     final recipeList = [
       ...state.recipeHot,
       ...state.recipeIce,
@@ -75,12 +76,9 @@ class EditMenuBloc extends Bloc<EditMenuEvent, EditMenuState> {
         recipeList: newRecipeList,
       );
       await _recipesRepository.saveMenu(newMenu);
+      emit(state.copyWith(status: () => EditMenuStatus.success));
     } else {
-      emit(
-        state.copyWith(
-          status: () => EditMenuStatus.failure,
-        ),
-      );
+      emit(state.copyWith(status: () => EditMenuStatus.failure));
     }
   }
 

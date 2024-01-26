@@ -29,8 +29,16 @@ class EditMenuPage extends StatelessWidget {
       child: BlocListener<EditMenuBloc, EditMenuState>(
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) async {
-          if (state.status == EditMenuStatus.failure) {
-            await showDialog(
+          if (state.status == EditMenuStatus.success) {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                const SnackBar(
+                  content: Text('บันทึกข้อมูลแล้ว'),
+                ),
+              );
+          } else if (state.status == EditMenuStatus.failure) {
+            await showDialog<void>(
               context: context,
               builder: (dialogContext) => AlertDialog(
                 title: const Text('บันทึกล้มเหลว'),
@@ -38,17 +46,17 @@ class EditMenuPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    if (!state.validateName) Text('* กรุณาตั้งชื่อเมนู'),
+                    if (!state.validateName) const Text('* กรุณาตั้งชื่อเมนู'),
                     if (!state.validateRecipeList)
-                      Text('* ต้องเพิ่มสูตรอย่างน้อย 1 รายการ'),
+                      const Text('* ต้องเพิ่มสูตรอย่างน้อย 1 รายการ'),
                   ],
                 ),
                 actions: <Widget>[
                   TextButton(
                     onPressed: () {
-                      context
-                          .read<EditMenuBloc>()
-                          .add(UpdateEditMenuStatus(EditMenuStatus.initial));
+                      context.read<EditMenuBloc>().add(
+                            const UpdateEditMenuStatus(EditMenuStatus.initial),
+                          );
                       Navigator.pop(context, 'OK');
                     },
                     child: const Text('ตกลง'),
