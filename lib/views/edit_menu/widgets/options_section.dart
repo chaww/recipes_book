@@ -7,6 +7,38 @@ import 'package:recipes_repository/recipes_repository.dart';
 class OptionsSection extends StatelessWidget {
   const OptionsSection({super.key});
 
+  void showConfirmDeleteRecipe({
+    required BuildContext context,
+    required int index,
+    required String type,
+  }) {
+    showDialog<void>(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('ยืนยันการลบ'),
+        // content: const Text('AlertDialog description'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('ยกเลิก'),
+          ),
+          TextButton(
+            onPressed: () {
+              context.read<EditMenuBloc>().add(
+                    DeleteRecipe(
+                      index: index,
+                      type: type,
+                    ),
+                  );
+              Navigator.pop(context);
+            },
+            child: const Text('ตกลง'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final state = context.watch<EditMenuBloc>().state;
@@ -42,14 +74,11 @@ class OptionsSection extends StatelessWidget {
                       leading: const Icon(Icons.coffee),
                       title: Text(e.value.optionName),
                       trailing: IconButton(
-                        onPressed: () {
-                          context.read<EditMenuBloc>().add(
-                                DeleteRecipe(
-                                  index: e.key,
-                                  type: e.value.type,
-                                ),
-                              );
-                        },
+                        onPressed: () => showConfirmDeleteRecipe(
+                          context: context,
+                          index: e.key,
+                          type: e.value.type,
+                        ),
                         icon: const Icon(Icons.delete_forever),
                       ),
                       onTap: () {
@@ -84,14 +113,11 @@ class OptionsSection extends StatelessWidget {
                       leading: const Icon(Icons.ac_unit),
                       title: Text(e.value.optionName),
                       trailing: IconButton(
-                        onPressed: () {
-                          context.read<EditMenuBloc>().add(
-                                DeleteRecipe(
-                                  index: e.key,
-                                  type: e.value.type,
-                                ),
-                              );
-                        },
+                        onPressed: () => showConfirmDeleteRecipe(
+                          context: context,
+                          index: e.key,
+                          type: e.value.type,
+                        ),
                         icon: const Icon(Icons.delete_forever),
                       ),
                       onTap: () {
@@ -126,14 +152,11 @@ class OptionsSection extends StatelessWidget {
                       leading: const Icon(Icons.cyclone),
                       title: Text(e.value.optionName),
                       trailing: IconButton(
-                        onPressed: () {
-                          context.read<EditMenuBloc>().add(
-                                DeleteRecipe(
-                                  index: e.key,
-                                  type: e.value.type,
-                                ),
-                              );
-                        },
+                        onPressed: () => showConfirmDeleteRecipe(
+                          context: context,
+                          index: e.key,
+                          type: e.value.type,
+                        ),
                         icon: const Icon(Icons.delete_forever),
                       ),
                       onTap: () {
