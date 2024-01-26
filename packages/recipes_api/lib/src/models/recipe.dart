@@ -11,7 +11,7 @@ class Recipe extends Equatable {
   const Recipe({
     this.image = '',
     this.type = '',
-    this.optionName = '',
+    this.optionName = 'ปกติ',
     this.ingredients = const [],
   });
 
