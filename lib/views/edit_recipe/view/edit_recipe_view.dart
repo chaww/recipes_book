@@ -29,9 +29,38 @@ class EditRecipePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<EditRecipeBloc, EditRecipeState>(
-      listener: (context, state) {
+      listenWhen: (previous, current) => previous.status != current.status,
+      listener: (context, state) async {
         if (state.status == EditRecipeStatus.success) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              const SnackBar(
+                content: Text('เพิ่มสูตรในรายการแล้ว'),
+              ),
+            );
           Navigator.pop(context);
+        } else if (state.status == EditRecipeStatus.failure) {
+          await showDialog<void>(
+            context: context,
+            builder: (dialogContext) => AlertDialog(
+              title: const Text('เพิ่มสูตรล้มเหลว'),
+              content: const Text('กรุณาเพิ่มวัตถุดิบอย่างน้อย 1 รายการ'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    context.read<EditRecipeBloc>().add(
+                          const UpdateEditRecipeStatus(
+                            EditRecipeStatus.initial,
+                          ),
+                        );
+                    Navigator.pop(context, 'OK');
+                  },
+                  child: const Text('ตกลง'),
+                ),
+              ],
+            ),
+          );
         }
       },
       child: const EditRecipeView(),

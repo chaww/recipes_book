@@ -4,7 +4,7 @@ enum EditRecipeStatus { initial, loading, success, failure }
 
 class EditRecipeState extends Equatable {
   const EditRecipeState({
-    this.status = EditRecipeStatus.loading,
+    this.status = EditRecipeStatus.initial,
     this.index = -1,
     this.type = '',
     this.optionName = '',

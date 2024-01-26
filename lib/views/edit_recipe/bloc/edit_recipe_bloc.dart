@@ -31,6 +31,7 @@ class EditRecipeBloc extends Bloc<EditRecipeEvent, EditRecipeState> {
     on<ShowDisplayPickImageDialog>(_onShowDisplayPickImageDialog);
     on<ImageDelete>(_onImageDelete);
     on<EditRecipeSubmitted>(_onEditRecipeSubmitted);
+    on<UpdateEditRecipeStatus>(_onUpdateEditRecipeStatus);
   }
 
   final RecipesRepository _recipesRepository;
@@ -49,7 +50,16 @@ class EditRecipeBloc extends Bloc<EditRecipeEvent, EditRecipeState> {
       );
       _editMenuBloc.add(UpdateRecipe(recipe: recipe, index: state.index));
       emit(state.copyWith(status: () => EditRecipeStatus.success));
+    } else {
+      emit(state.copyWith(status: () => EditRecipeStatus.failure));
     }
+  }
+
+  void _onUpdateEditRecipeStatus(
+    UpdateEditRecipeStatus event,
+    Emitter<EditRecipeState> emit,
+  ) {
+    emit(state.copyWith(status: () => event.status));
   }
 
   void _onOptionNameOnChange(

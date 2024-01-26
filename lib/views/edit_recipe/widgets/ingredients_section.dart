@@ -46,6 +46,7 @@ class IngredientItem extends StatelessWidget {
           builder: (_) => IngredientDialog(
             parentContext: context,
             index: index,
+            item: item,
           ),
         ),
         child: Row(
@@ -80,7 +81,7 @@ class IngredientItem extends StatelessWidget {
                           .read<EditRecipeBloc>()
                           .add(IngredientDelete(index));
                     },
-                    icon: Icon(Icons.delete_forever),
+                    icon: const Icon(Icons.delete_forever),
                   ),
                 ],
               ),
@@ -112,31 +113,38 @@ class IngreditntEdit extends StatelessWidget {
   }
 }
 
-class IngredientDialog extends StatelessWidget {
+class IngredientDialog extends StatefulWidget {
   const IngredientDialog({
     required this.parentContext,
-    super.key,
+    this.item = const Ingredient(),
     this.index = -1,
+    super.key,
   });
 
   final BuildContext parentContext;
   final int index;
+  final Ingredient item;
+
+  @override
+  State<IngredientDialog> createState() => _IngredientDialog();
+}
+
+class _IngredientDialog extends State<IngredientDialog> {
+  late String name;
+  late String value;
+  late String unit;
+  bool showNameValidate = false;
+
+  @override
+  void initState() {
+    name = widget.item.name;
+    value = widget.item.value;
+    unit = widget.item.unit;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    var name = '';
-    var value = '';
-    var unit = '';
-
-    if (index >= 0) {
-      final state = parentContext.read<EditRecipeBloc>().state;
-
-      name = state.ingredientList[index].name;
-      value = state.ingredientList[index].value;
-      unit = state.ingredientList[index].unit;
-      log('$name $value $unit');
-    }
-
     return Dialog(
       child: Padding(
         padding: const EdgeInsets.all(8),
@@ -155,12 +163,18 @@ class IngredientDialog extends StatelessWidget {
             TextFormField(
               initialValue: name,
               onChanged: (v) {
-                name = v;
+                setState(() {
+                  name = v;
+                  showNameValidate = true;
+                });
               },
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                label: Text('ชื่อวัตถุดิบ'),
-                floatingLabelStyle: TextStyle(fontSize: 22),
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                label: const Text('ชื่อวัตถุดิบ'),
+                floatingLabelStyle: const TextStyle(fontSize: 22),
+                errorText: showNameValidate && name.isEmpty
+                    ? 'ต้องมีชื่อวัตถุดิบ'
+                    : null,
               ),
             ),
             const SizedBox(height: 8),
@@ -170,7 +184,9 @@ class IngredientDialog extends StatelessWidget {
                   child: TextFormField(
                     initialValue: value,
                     onChanged: (v) {
-                      value = v;
+                      setState(() {
+                        value = v;
+                      });
                     },
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
@@ -184,7 +200,9 @@ class IngredientDialog extends StatelessWidget {
                   child: TextFormField(
                     initialValue: unit,
                     onChanged: (v) {
-                      unit = v;
+                      setState(() {
+                        unit = v;
+                      });
                     },
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
@@ -215,21 +233,26 @@ class IngredientDialog extends StatelessWidget {
                 Expanded(
                   child: TextButton(
                     onPressed: () {
-                      final item = Ingredient(
-                        name: name,
-                        value: value,
-                        unit: unit,
-                      );
-                      if (index >= 0) {
-                        parentContext
-                            .read<EditRecipeBloc>()
-                            .add(IngredientEdit(item: item, index: index));
-                      } else {
-                        parentContext
-                            .read<EditRecipeBloc>()
-                            .add(IngredientAdd(item));
-                      }
-                      Navigator.pop(context);
+                      setState(() {
+                        showNameValidate = true;
+                      });
+                      if (name.isNotEmpty) {
+                        final item = Ingredient(
+                          name: name,
+                          value: value,
+                          unit: unit,
+                        );
+                        if (widget.index >= 0) {
+                          widget.parentContext.read<EditRecipeBloc>().add(
+                                IngredientEdit(item: item, index: widget.index),
+                              );
+                        } else {
+                          widget.parentContext
+                              .read<EditRecipeBloc>()
+                              .add(IngredientAdd(item));
+                        }
+                        Navigator.pop(context);
+                      } else {}
                     },
                     child: const Text(
                       'บันทึก',

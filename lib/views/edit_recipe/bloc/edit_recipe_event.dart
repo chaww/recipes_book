@@ -7,6 +7,14 @@ sealed class EditRecipeEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class UpdateEditRecipeStatus extends EditRecipeEvent {
+  const UpdateEditRecipeStatus(this.status);
+  final EditRecipeStatus status;
+
+  @override
+  List<Object> get props => [status];
+}
+
 class EditRecipeSubmitted extends EditRecipeEvent {
   const EditRecipeSubmitted();
 }
