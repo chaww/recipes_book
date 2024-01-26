@@ -33,18 +33,10 @@ class EditMenuBloc extends Bloc<EditMenuEvent, EditMenuState> {
       ...state.recipeFrappe,
     ];
     if (state.name.isEmpty) {
-      emit(
-        state.copyWith(
-          validateName: () => false,
-        ),
-      );
+      emit(state.copyWith(validateName: () => false));
     }
     if (recipeList.isEmpty) {
-      emit(
-        state.copyWith(
-          validateRecipeList: () => false,
-        ),
-      );
+      emit(state.copyWith(validateRecipeList: () => false));
     }
     if (state.validateName && state.validateRecipeList) {
       final newRecipeList = <Recipe>[];
@@ -68,7 +60,6 @@ class EditMenuBloc extends Bloc<EditMenuEvent, EditMenuState> {
           ),
         );
       }
-
       final newMenu = Menu(
         name: state.name,
         image: menuImagePath,
@@ -86,11 +77,7 @@ class EditMenuBloc extends Bloc<EditMenuEvent, EditMenuState> {
     UpdateEditMenuStatus event,
     Emitter<EditMenuState> emit,
   ) {
-    emit(
-      state.copyWith(
-        status: () => event.status,
-      ),
-    );
+    emit(state.copyWith(status: () => event.status));
   }
 
   void _onDeleteRecipe(
@@ -102,29 +89,17 @@ class EditMenuBloc extends Bloc<EditMenuEvent, EditMenuState> {
       final newList = [...state.recipeHot];
       // ignore: cascade_invocations
       newList.removeAt(event.index);
-      emit(
-        state.copyWith(
-          recipeHot: () => newList,
-        ),
-      );
+      emit(state.copyWith(recipeHot: () => newList));
     } else if (type == 'เย็น') {
       final newList = [...state.recipeIce];
       // ignore: cascade_invocations
       newList.removeAt(event.index);
-      emit(
-        state.copyWith(
-          recipeIce: () => newList,
-        ),
-      );
+      emit(state.copyWith(recipeIce: () => newList));
     } else if (type == 'ปั่น') {
       final newList = [...state.recipeFrappe];
       // ignore: cascade_invocations
       newList.removeAt(event.index);
-      emit(
-        state.copyWith(
-          recipeFrappe: () => newList,
-        ),
-      );
+      emit(state.copyWith(recipeFrappe: () => newList));
     }
   }
 
@@ -135,51 +110,30 @@ class EditMenuBloc extends Bloc<EditMenuEvent, EditMenuState> {
     final type = event.recipe.type;
     if (type == 'ร้อน') {
       if (event.index == -1) {
-        emit(
-          state.copyWith(
-            recipeHot: () => [...state.recipeHot, event.recipe],
-          ),
-        );
+        emit(state.copyWith(
+            recipeHot: () => [...state.recipeHot, event.recipe]));
       } else {
         final newList = [...state.recipeHot];
         newList[event.index] = event.recipe;
-        emit(
-          state.copyWith(
-            recipeHot: () => newList,
-          ),
-        );
+        emit(state.copyWith(recipeHot: () => newList));
       }
     } else if (type == 'เย็น') {
       if (event.index == -1) {
-        emit(
-          state.copyWith(
-            recipeIce: () => [...state.recipeIce, event.recipe],
-          ),
-        );
+        emit(state.copyWith(
+            recipeIce: () => [...state.recipeIce, event.recipe]));
       } else {
         final newList = [...state.recipeIce];
         newList[event.index] = event.recipe;
-        emit(
-          state.copyWith(
-            recipeIce: () => newList,
-          ),
-        );
+        emit(state.copyWith(recipeIce: () => newList));
       }
     } else if (type == 'ปั่น') {
       if (event.index == -1) {
-        emit(
-          state.copyWith(
-            recipeFrappe: () => [...state.recipeFrappe, event.recipe],
-          ),
-        );
+        emit(state.copyWith(
+            recipeFrappe: () => [...state.recipeFrappe, event.recipe]));
       } else {
         final newList = [...state.recipeFrappe];
         newList[event.index] = event.recipe;
-        emit(
-          state.copyWith(
-            recipeFrappe: () => newList,
-          ),
-        );
+        emit(state.copyWith(recipeFrappe: () => newList));
       }
     }
   }
@@ -201,11 +155,7 @@ class EditMenuBloc extends Bloc<EditMenuEvent, EditMenuState> {
     ImageDelete event,
     Emitter<EditMenuState> emit,
   ) {
-    emit(
-      state.copyWith(
-        imagePath: () => '',
-      ),
-    );
+    emit(state.copyWith(imagePath: () => ''));
   }
 
   void _onNameChange(
@@ -224,10 +174,6 @@ class EditMenuBloc extends Bloc<EditMenuEvent, EditMenuState> {
     CategoryChange event,
     Emitter<EditMenuState> emit,
   ) {
-    emit(
-      state.copyWith(
-        category: () => event.category,
-      ),
-    );
+    emit(state.copyWith(category: () => event.category));
   }
 }
