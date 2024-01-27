@@ -33,6 +33,7 @@ class EditMenuPage extends StatelessWidget {
                   content: Text('บันทึกข้อมูลแล้ว'),
                 ),
               );
+            Navigator.of(context).pop();
           } else if (state.status == EditMenuStatus.failure) {
             await showDialog<void>(
               context: context,
@@ -81,7 +82,11 @@ class EditMenuView extends StatelessWidget {
         title: Text(title),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          context.read<EditMenuBloc>().add(
+                const EditMenuSubmitted(),
+              );
+        },
         shape: const CircleBorder(),
         child: const Icon(Icons.done),
       ),
