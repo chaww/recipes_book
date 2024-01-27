@@ -8,8 +8,20 @@ part 'edit_menu_state.dart';
 class EditMenuBloc extends Bloc<EditMenuEvent, EditMenuState> {
   EditMenuBloc({
     required RecipesRepository recipesRepository,
+    required Menu menu,
   })  : _recipesRepository = recipesRepository,
-        super(const EditMenuState()) {
+        super(
+          EditMenuState(
+            menu: menu,
+            imagePath: menu.image,
+            name: menu.name,
+            category: menu.category,
+            recipeHot: menu.recipeList.where((e) => e.type == 'ร้อน').toList(),
+            recipeIce: menu.recipeList.where((e) => e.type == 'เย็น').toList(),
+            recipeFrappe:
+                menu.recipeList.where((e) => e.type == 'ปั่น').toList(),
+          ),
+        ) {
     on<UpdateRecipe>(_onUpdateRecipe);
     on<DeleteRecipe>(_onDeleteRecipe);
     on<ShowDisplayPickImageDialog>(_onShowDisplayPickImageDialog);

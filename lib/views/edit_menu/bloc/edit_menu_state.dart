@@ -4,6 +4,7 @@ enum EditMenuStatus { initial, loading, success, failure }
 
 class EditMenuState extends Equatable {
   const EditMenuState({
+    required this.menu,
     this.status = EditMenuStatus.initial,
     this.categoryList = const ['ไม่ระบุ', 'ชา', 'กาแฟ'],
     this.imagePath = '',
@@ -15,6 +16,8 @@ class EditMenuState extends Equatable {
     this.validateName = true,
     this.validateRecipeList = true,
   });
+
+  final Menu menu;
 
   final EditMenuStatus status;
   final List<String> categoryList;
@@ -30,6 +33,7 @@ class EditMenuState extends Equatable {
   final bool validateRecipeList;
 
   EditMenuState copyWith({
+    Menu Function()? menu,
     EditMenuStatus Function()? status,
     List<String> Function()? categoryList,
     String Function()? imagePath,
@@ -42,6 +46,7 @@ class EditMenuState extends Equatable {
     bool Function()? validateRecipeList,
   }) {
     return EditMenuState(
+      menu: menu != null ? menu() : this.menu,
       status: status != null ? status() : this.status,
       categoryList: categoryList != null ? categoryList() : this.categoryList,
       imagePath: imagePath != null ? imagePath() : this.imagePath,
