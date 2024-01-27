@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipes_api/recipes_api.dart';
@@ -19,7 +17,8 @@ class IngreditntsSection extends StatelessWidget {
           ...state.ingredientList.asMap().entries.map(
                 (e) => IngredientItem(item: e.value, index: e.key),
               ),
-          const IngreditntEdit(),
+          const IngreditntAddButton(),
+          const SizedBox(height: 80),
         ],
       ),
     );
@@ -53,12 +52,13 @@ class IngredientItem extends StatelessWidget {
           children: [
             Row(
               children: [
-                IconButton(
-                  onPressed: () {
-                    log('onPressed drag_handle');
-                  },
-                  icon: const Icon(Icons.drag_handle),
-                ),
+                // IconButton(
+                //   onPressed: () {
+                //     log('onPressed drag_handle');
+                //   },
+                //   icon: const Icon(Icons.drag_handle),
+                // ),
+                const SizedBox(width: 24),
                 Text(item.name),
               ],
             ),
@@ -112,8 +112,8 @@ class IngredientItem extends StatelessWidget {
   }
 }
 
-class IngreditntEdit extends StatelessWidget {
-  const IngreditntEdit({super.key});
+class IngreditntAddButton extends StatelessWidget {
+  const IngreditntAddButton({super.key});
 
   @override
   Widget build(BuildContext context) {

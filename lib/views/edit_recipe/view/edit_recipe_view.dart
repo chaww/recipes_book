@@ -83,14 +83,13 @@ class EditRecipeView extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(title),
-        actions: [
-          IconButton(
-            onPressed: () {
-              context.read<EditRecipeBloc>().add(const EditRecipeSubmitted());
-            },
-            icon: const Icon(Icons.done_all),
-          ),
-        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          context.read<EditRecipeBloc>().add(const EditRecipeSubmitted());
+        },
+        shape: const CircleBorder(),
+        child: const Icon(Icons.done),
       ),
       body: WillPopScope(
         onWillPop: () async {
