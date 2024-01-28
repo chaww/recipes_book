@@ -44,12 +44,8 @@ class EditMenuBloc extends Bloc<EditMenuEvent, EditMenuState> {
       ...state.recipeIce,
       ...state.recipeFrappe,
     ];
-    if (state.name.isEmpty) {
-      emit(state.copyWith(validateName: () => false));
-    }
-    if (recipeList.isEmpty) {
-      emit(state.copyWith(validateRecipeList: () => false));
-    }
+    emit(state.copyWith(validateName: () => state.name.isNotEmpty));
+    emit(state.copyWith(validateRecipeList: () => recipeList.isNotEmpty));
     if (state.validateName && state.validateRecipeList) {
       final newRecipeList = <Recipe>[];
       var menuImagePath = state.imagePath;
