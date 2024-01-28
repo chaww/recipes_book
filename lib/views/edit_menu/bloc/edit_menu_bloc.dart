@@ -16,9 +16,11 @@ class EditMenuBloc extends Bloc<EditMenuEvent, EditMenuState> {
             imagePath: menu.image,
             name: menu.name,
             category: menu.category,
-            recipeHot: menu.recipeList.where((e) => e.type == 'ร้อน').toList(),
-            recipeIce: menu.recipeList.where((e) => e.type == 'เย็น').toList(),
-            recipeFrappe:
+            recipeHotList:
+                menu.recipeList.where((e) => e.type == 'ร้อน').toList(),
+            recipeIceList:
+                menu.recipeList.where((e) => e.type == 'เย็น').toList(),
+            recipeFrappeList:
                 menu.recipeList.where((e) => e.type == 'ปั่น').toList(),
           ),
         ) {
@@ -40,9 +42,9 @@ class EditMenuBloc extends Bloc<EditMenuEvent, EditMenuState> {
   ) async {
     emit(state.copyWith(status: () => EditMenuStatus.loading));
     final recipeList = [
-      ...state.recipeHot,
-      ...state.recipeIce,
-      ...state.recipeFrappe,
+      ...state.recipeHotList,
+      ...state.recipeIceList,
+      ...state.recipeFrappeList,
     ];
     emit(state.copyWith(validateName: () => state.name.isNotEmpty));
     emit(state.copyWith(validateRecipeList: () => recipeList.isNotEmpty));
@@ -94,20 +96,20 @@ class EditMenuBloc extends Bloc<EditMenuEvent, EditMenuState> {
   ) {
     final type = event.type;
     if (type == 'ร้อน') {
-      final newList = [...state.recipeHot];
+      final newList = [...state.recipeHotList];
       // ignore: cascade_invocations
       newList.removeAt(event.index);
-      emit(state.copyWith(recipeHot: () => newList));
+      emit(state.copyWith(recipeHotList: () => newList));
     } else if (type == 'เย็น') {
-      final newList = [...state.recipeIce];
+      final newList = [...state.recipeIceList];
       // ignore: cascade_invocations
       newList.removeAt(event.index);
-      emit(state.copyWith(recipeIce: () => newList));
+      emit(state.copyWith(recipeIceList: () => newList));
     } else if (type == 'ปั่น') {
-      final newList = [...state.recipeFrappe];
+      final newList = [...state.recipeFrappeList];
       // ignore: cascade_invocations
       newList.removeAt(event.index);
-      emit(state.copyWith(recipeFrappe: () => newList));
+      emit(state.copyWith(recipeFrappeList: () => newList));
     }
   }
 
@@ -119,29 +121,29 @@ class EditMenuBloc extends Bloc<EditMenuEvent, EditMenuState> {
     if (type == 'ร้อน') {
       if (event.index == -1) {
         emit(state.copyWith(
-            recipeHot: () => [...state.recipeHot, event.recipe]));
+            recipeHotList: () => [...state.recipeHotList, event.recipe]));
       } else {
-        final newList = [...state.recipeHot];
+        final newList = [...state.recipeHotList];
         newList[event.index] = event.recipe;
-        emit(state.copyWith(recipeHot: () => newList));
+        emit(state.copyWith(recipeHotList: () => newList));
       }
     } else if (type == 'เย็น') {
       if (event.index == -1) {
         emit(state.copyWith(
-            recipeIce: () => [...state.recipeIce, event.recipe]));
+            recipeIceList: () => [...state.recipeIceList, event.recipe]));
       } else {
-        final newList = [...state.recipeIce];
+        final newList = [...state.recipeIceList];
         newList[event.index] = event.recipe;
-        emit(state.copyWith(recipeIce: () => newList));
+        emit(state.copyWith(recipeIceList: () => newList));
       }
     } else if (type == 'ปั่น') {
       if (event.index == -1) {
         emit(state.copyWith(
-            recipeFrappe: () => [...state.recipeFrappe, event.recipe]));
+            recipeFrappeList: () => [...state.recipeFrappeList, event.recipe]));
       } else {
-        final newList = [...state.recipeFrappe];
+        final newList = [...state.recipeFrappeList];
         newList[event.index] = event.recipe;
-        emit(state.copyWith(recipeFrappe: () => newList));
+        emit(state.copyWith(recipeFrappeList: () => newList));
       }
     }
   }

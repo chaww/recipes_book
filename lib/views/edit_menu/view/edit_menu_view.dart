@@ -98,9 +98,9 @@ class EditMenuView extends StatelessWidget {
             category: state.category,
             name: state.name,
             recipeList: [
-              ...state.recipeHot,
-              ...state.recipeIce,
-              ...state.recipeFrappe,
+              ...state.recipeHotList,
+              ...state.recipeIceList,
+              ...state.recipeFrappeList,
             ],
             id: state.menu.id,
           );

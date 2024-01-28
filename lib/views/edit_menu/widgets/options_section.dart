@@ -69,7 +69,7 @@ class OptionsSection extends StatelessWidget {
                   ),
                 ),
               ),
-              ...state.recipeHot.asMap().entries.map(
+              ...state.recipeHotList.asMap().entries.map(
                     (e) => ListTile(
                       leading: const Icon(Icons.coffee),
                       title: Text(e.value.optionName),
@@ -108,7 +108,7 @@ class OptionsSection extends StatelessWidget {
                   ),
                 ),
               ),
-              ...state.recipeIce.asMap().entries.map(
+              ...state.recipeIceList.asMap().entries.map(
                     (e) => ListTile(
                       leading: const Icon(Icons.ac_unit),
                       title: Text(e.value.optionName),
@@ -147,7 +147,7 @@ class OptionsSection extends StatelessWidget {
                   ),
                 ),
               ),
-              ...state.recipeFrappe.asMap().entries.map(
+              ...state.recipeFrappeList.asMap().entries.map(
                     (e) => ListTile(
                       leading: const Icon(Icons.cyclone),
                       title: Text(e.value.optionName),

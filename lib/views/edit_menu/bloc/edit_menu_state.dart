@@ -10,9 +10,9 @@ class EditMenuState extends Equatable {
     this.imagePath = '',
     this.name = '',
     this.category = '',
-    this.recipeHot = const [],
-    this.recipeIce = const [],
-    this.recipeFrappe = const [],
+    this.recipeHotList = const [],
+    this.recipeIceList = const [],
+    this.recipeFrappeList = const [],
     this.validateName = true,
     this.validateRecipeList = true,
   });
@@ -25,9 +25,9 @@ class EditMenuState extends Equatable {
   final String imagePath;
   final String name;
   final String category;
-  final List<Recipe> recipeHot;
-  final List<Recipe> recipeIce;
-  final List<Recipe> recipeFrappe;
+  final List<Recipe> recipeHotList;
+  final List<Recipe> recipeIceList;
+  final List<Recipe> recipeFrappeList;
 
   final bool validateName;
   final bool validateRecipeList;
@@ -39,9 +39,9 @@ class EditMenuState extends Equatable {
     String Function()? imagePath,
     String Function()? name,
     String Function()? category,
-    List<Recipe> Function()? recipeHot,
-    List<Recipe> Function()? recipeIce,
-    List<Recipe> Function()? recipeFrappe,
+    List<Recipe> Function()? recipeHotList,
+    List<Recipe> Function()? recipeIceList,
+    List<Recipe> Function()? recipeFrappeList,
     bool Function()? validateName,
     bool Function()? validateRecipeList,
   }) {
@@ -52,9 +52,12 @@ class EditMenuState extends Equatable {
       imagePath: imagePath != null ? imagePath() : this.imagePath,
       name: name != null ? name() : this.name,
       category: category != null ? category() : this.category,
-      recipeHot: recipeHot != null ? recipeHot() : this.recipeHot,
-      recipeIce: recipeIce != null ? recipeIce() : this.recipeIce,
-      recipeFrappe: recipeFrappe != null ? recipeFrappe() : this.recipeFrappe,
+      recipeHotList:
+          recipeHotList != null ? recipeHotList() : this.recipeHotList,
+      recipeIceList:
+          recipeIceList != null ? recipeIceList() : this.recipeIceList,
+      recipeFrappeList:
+          recipeFrappeList != null ? recipeFrappeList() : this.recipeFrappeList,
       validateName: validateName != null ? validateName() : this.validateName,
       validateRecipeList: validateRecipeList != null
           ? validateRecipeList()
@@ -69,9 +72,9 @@ class EditMenuState extends Equatable {
         imagePath,
         name,
         category,
-        recipeHot,
-        recipeIce,
-        recipeFrappe,
+        recipeHotList,
+        recipeIceList,
+        recipeFrappeList,
         validateName,
         validateRecipeList,
       ];
