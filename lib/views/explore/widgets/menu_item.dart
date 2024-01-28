@@ -17,45 +17,33 @@ class MenuItem extends StatelessWidget {
       // color: Colors.transparent,
       elevation: 0,
       child: InkWell(
-        splashColor: Colors.orange.withAlpha(30),
+        splashColor: Colors.transparent,
         onTap: () {
           // context.read<RecipeStateProvider>().setRecipeOpen(recipe);
           Navigator.of(context).push(DetailsPage.route(menu: menu));
         },
-        child: Stack(
+        child: Column(
           children: [
             Container(
+              height: 170,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: FileImage(File(menu.image)),
                 ),
               ),
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: const Color.fromRGBO(255, 255, 255, 0.5),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  height: 100,
-                  width: double.infinity,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Center(
-                      child: Text(
-                        menu.name,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Center(
+                child: Text(
+                  menu.name + ' aaaaaa',
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              ],
+              ),
             ),
           ],
         ),

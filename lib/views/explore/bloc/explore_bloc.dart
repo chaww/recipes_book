@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:recipes_api/recipes_api.dart';
 import 'package:recipes_repository/recipes_repository.dart';
 
 part 'explore_event.dart';
@@ -22,7 +21,9 @@ class ExploreBloc extends Bloc<ExploreEvent, ExploreState> {
   ) async {
     await emit.forEach(
       _recipesRepository.getBook(),
-      onData: (book) => state.copyWith(menuList: () => book),
+      onData: (book) {
+        return state.copyWith(menuList: () => book);
+      },
     );
   }
 }
