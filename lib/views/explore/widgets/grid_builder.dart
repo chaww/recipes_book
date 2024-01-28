@@ -4,9 +4,9 @@ import 'package:recipes_book/views/explore/bloc/explore_bloc.dart';
 import 'package:recipes_book/views/explore/widgets/widgets.dart';
 
 class GridBuilder extends StatelessWidget {
-  const GridBuilder({super.key, this.filterTypeName = ''});
+  const GridBuilder({super.key, this.filterCategory = ''});
 
-  final String filterTypeName;
+  final String filterCategory;
 
   @override
   Widget build(BuildContext context) {
@@ -15,15 +15,19 @@ class GridBuilder extends StatelessWidget {
 
     // print(context.watch<ExploreBloc>().state.menuList);
 
-    final recipesFilter = context.watch<ExploreBloc>().state.menuList;
+    final menuList = context.watch<ExploreBloc>().state.menuList;
+    // final menuListFilter = menuList.where((e) => e.category == filterCategory);
+    final menuListFilter = menuList;
 
     return GridView.count(
       // childAspectRatio: (510/912),
+      // childAspectRatio: 408 / 612,
       childAspectRatio: 408 / 612,
       primary: false,
       padding: const EdgeInsets.all(8),
       crossAxisCount: crossAxisCount,
-      children: recipesFilter.map((recipe) => MenuItem(menu: recipe)).toList(),
+      children: menuListFilter.map((recipe) => MenuItem(menu: recipe)).toList(),
+      // children: recipesFilter.map((recipe) => MenuItem(menu: recipe)).toList(),
       // children: [
       //   Text(filterTypeName),
       // ],

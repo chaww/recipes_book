@@ -1,5 +1,7 @@
 part of 'explore_bloc.dart';
 
+enum ExploreStatus { initial, loading, success, failure }
+
 class ExploreState extends Equatable {
   const ExploreState({
     this.menuList = const [],

@@ -19,9 +19,5 @@ final class MenuListChanged extends ExploreEvent {
   final List<Menu> menuList;
 
   @override
-  List<Object> get props => [
-        ...menuList.map((e) => e.name),
-        ...menuList.map((e) => e.image),
-        ...menuList.map((e) => e.category),
-      ];
+  List<Object> get props => [menuList];
 }

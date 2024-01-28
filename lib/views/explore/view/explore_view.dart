@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipes_book/views/edit_menu/view/edit_menu_view.dart';
 import 'package:recipes_book/views/explore/bloc/explore_bloc.dart';
 import 'package:recipes_book/views/explore/widgets/widgets.dart';
 import 'package:recipes_book/widgets/Background.dart';
@@ -26,7 +27,7 @@ class _ExploreView extends StatelessWidget {
   Widget build(BuildContext context) {
     const style = TextStyle(fontSize: 20);
     final sizeWidth = MediaQuery.sizeOf(context).width;
-    const tabsList = ['ทั้งหมด', 'กาแฟ', 'ชา', 'สมูทตี้', 'โซดา'];
+    const tabsList = ['ทั้งหมด', 'กาแฟ', 'ชา', 'สมูทตี้', 'โซดา', 'อื่นๆ'];
 
     // print(context.watch<ExploreBloc>().state.menuList);
 
@@ -35,18 +36,14 @@ class _ExploreView extends StatelessWidget {
       length: tabsList.length,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: const Text('สูตร'),
           actions: [
             IconButton(
               icon: const Icon(Icons.add),
               iconSize: 32,
               onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('This is a snackbar'),
-                  ),
-                );
+                Navigator.of(context).push(EditMenuPage.route(menu: Menu()));
               },
             ),
           ],
@@ -72,7 +69,7 @@ class _ExploreView extends StatelessWidget {
                 tabsList.length,
                 (index) => Center(
                   child: GridBuilder(
-                    filterTypeName: tabsList[index],
+                    filterCategory: tabsList[index],
                   ),
                 ),
               ),
