@@ -91,8 +91,9 @@ class EditRecipeView extends StatelessWidget {
         shape: const CircleBorder(),
         child: const Icon(Icons.done),
       ),
-      body: WillPopScope(
-        onWillPop: () async {
+      body: PopScope(
+        canPop: false,
+        onPopInvoked: (didPop) async {
           final state = context.read<EditRecipeBloc>().state;
           final newRecipe = Recipe(
             image: state.imagePath,
@@ -101,29 +102,29 @@ class EditRecipeView extends StatelessWidget {
             ingredients: state.ingredientList,
           );
           if (state.recipe == newRecipe) {
-            return true;
+            Navigator.pop(context);
           } else {
-            final confirm = await showDialog<bool>(
+            await showDialog<bool>(
               context: context,
               builder: (dialogContext) => AlertDialog(
                 title: const Text('ละทิ้งการเปลี่ยนแปลง?'),
                 actions: <Widget>[
                   TextButton(
                     onPressed: () {
-                      Navigator.pop(dialogContext, false);
+                      Navigator.pop(dialogContext);
                     },
                     child: const Text('ยกเลิก'),
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.pop(dialogContext, true);
+                      Navigator.pop(dialogContext);
+                      Navigator.pop(context);
                     },
                     child: const Text('ตกลง'),
                   ),
                 ],
               ),
             );
-            return confirm ?? false;
           }
         },
         child: ListView(
