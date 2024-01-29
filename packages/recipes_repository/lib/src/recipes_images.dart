@@ -36,7 +36,7 @@ class RecipesImages {
     if (source.isNotEmpty && source.contains('/cache/')) {
       final appDocDir = await getApplicationDocumentsDirectory();
       final dirPath = appDocDir.path;
-      final fileType = source.split('/').last;
+      final fileType = source.split('.').last;
       final file = File(source);
       final filename = const Uuid().v4();
       final newImage = await file.copy('$dirPath/$filename.$fileType');
