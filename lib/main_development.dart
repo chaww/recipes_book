@@ -13,7 +13,7 @@ Future<void> main() async {
 
   final recipesRepository = RecipesRepository(recipesApi: recipesApi);
 
-  await recipesRepository.mockData();
+  // await recipesRepository.mockData();
 
   await bootstrap(
     () => App(recipesRepository: recipesRepository),

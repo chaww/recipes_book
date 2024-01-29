@@ -3,3 +3,8 @@ very_good create dart_package recipes_api -o packages
 very_good create flutter_package local_storage_recipes_api -o packages
 
 very_good create dart_package recipes_repository -o packages
+
+very_good create dart_package recipes_images -o packages
+
+dart run build_runner build
+

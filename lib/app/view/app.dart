@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipes_book/l10n/l10n.dart';
+import 'package:recipes_book/views/edit_menu/view/view.dart';
+import 'package:recipes_book/views/edit_recipe/view/view.dart';
 import 'package:recipes_book/views/explore/view/view.dart';
 import 'package:recipes_repository/recipes_repository.dart';
 
@@ -26,7 +28,7 @@ class AppView extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.orangeAccent),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
         appBarTheme: AppBarTheme(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         ),
@@ -34,7 +36,9 @@ class AppView extends StatelessWidget {
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const ExploreView(),
+      // home: const EditMenuPage(),
+      // home: const EditRecipePage(),
+      home: const ExplorePage(),
     );
   }
 }

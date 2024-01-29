@@ -8,12 +8,13 @@ class BackgroundWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // decoration: const BoxDecoration(
-      //   image: DecorationImage(
-      //     image: AssetImage("assets/images/bg2.jpg"),
-      //     fit: BoxFit.cover,
-      //   ),
-      // ),
+      decoration: const BoxDecoration(
+        color: Colors.black12,
+        // image: DecorationImage(
+        //   image: AssetImage("assets/images/bg2.jpg"),
+        //   fit: BoxFit.cover,
+        // ),
+      ),
       child: ClipRRect(
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
